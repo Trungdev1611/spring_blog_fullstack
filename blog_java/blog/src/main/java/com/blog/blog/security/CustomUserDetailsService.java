@@ -29,9 +29,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     // từ database
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("vao day login " + username);
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundEx());
-
+        System.out.println("user " + user.getUsername() + user.getPassword());
         // lấy các quyền của user tìm được
         Set<GrantedAuthority> authorities = user.getRoles().stream()
                 .map((role) -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toSet());
