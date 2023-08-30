@@ -3,7 +3,6 @@ package com.blog.blog.auth;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,7 +13,7 @@ import org.springframework.security.core.AuthenticationException;
 
 import com.blog.blog.Role.Role;
 import com.blog.blog.Role.RoleRepository;
-import com.blog.blog.exception.Apiexception;
+import com.blog.blog.exception.ApiException;
 import com.blog.blog.jwt.JwtProvider;
 
 @Service
@@ -61,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
     public String register(RegisterDTO registerDTO) {
 
         if (userRepository.existsByUsername(registerDTO.getUsername())) {
-            throw new Apiexception("Username already exits in database");
+            throw new ApiException("Username already exits in database");
         }
 
         User user = new User();
@@ -74,7 +73,7 @@ public class AuthServiceImpl implements AuthService {
         user.setFull_name((registerDTO.getFullName()));
 
         Role roleUser = roleRepository.findByRoleName("ROLE_USER").orElseThrow(
-                () -> new Apiexception("Không tồn tại ROLE_USER trong database"));
+                () -> new ApiException("Không tồn tại ROLE_USER trong database"));
 
         Set<Role> rolesDefault = new HashSet<>();
         rolesDefault.add(roleUser);

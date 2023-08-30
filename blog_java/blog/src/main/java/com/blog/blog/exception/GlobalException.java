@@ -25,8 +25,8 @@ public class GlobalException {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Tài khoản hoặc mật khẩu không đúng");
     }
 
-    @ExceptionHandler(Apiexception.class)
-    public ResponseEntity<ErrorResponse> handleApiexceptionEx(Apiexception ex) {
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<ErrorResponse> handleApiException(ApiException ex) {
 
         // biến ex sẽ mang các đối số từ việc throw qua đây
         ErrorResponse errorData = new ErrorResponse(ex.getMessage(), ex.getStatus(), ex.getData());
