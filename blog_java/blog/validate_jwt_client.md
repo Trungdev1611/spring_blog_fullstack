@@ -1,6 +1,6 @@
 # ĐẶT VẤN ĐỀ: Trước đó khi người dùng đăng nhập (nếu đúng tài khoản ) sẽ trả ra jwt ở response. Người dùng cũng có thể đăng ký tài khoản mới
 
-# Nhiệm vụ hiện tại là validate token đã gửi về trước đó khi client gửi kèm trong header Bearer token
+# Nhiệm vụ hiện tại là validate token đã gửi về trước đó khi client gửi kèm trong header Bearer token, nếu hợp lệ cho phép truy cập resource, nếu sai trả về lỗi tương ứng
 
 B1: **Tạo 1 bộ lọc JwtTokenFilter**: Bộ lọc này sẽ extends OncePerRequestFilter (cái này mỗi request đều đi qua nó). Ở trong này ta sẽ ghi đè hàm doFilterInternal
 
