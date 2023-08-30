@@ -21,9 +21,15 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> postMethodName(@RequestBody LoginDTO loginDTO) {
-        System.out.println(loginDTO.toString());
+
         JwtResponse jwtResponse = new JwtResponse("Bearer", authService.login(loginDTO));
         return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/register")
+    public ResponseEntity<String> postMethodName(@RequestBody RegisterDTO registerDTO) {
+
+        return new ResponseEntity<>(authService.register(registerDTO), HttpStatus.CREATED);
     }
 
 }

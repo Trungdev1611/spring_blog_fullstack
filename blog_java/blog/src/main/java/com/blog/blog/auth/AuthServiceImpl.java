@@ -1,24 +1,39 @@
 package com.blog.blog.auth;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.AuthenticationException;
+
+import com.blog.blog.Role.Role;
+import com.blog.blog.Role.RoleRepository;
+import com.blog.blog.exception.Apiexception;
 import com.blog.blog.jwt.JwtProvider;
 
 @Service
 public class AuthServiceImpl implements AuthService {
+
     public AuthenticationManager authenticationManager;
     public JwtProvider jwtTokenProvider;
+    private UserRepository userRepository;
+    private RoleRepository roleRepository;
+    private PasswordEncoder passwordEncoder;
 
-    @Autowired
     public AuthServiceImpl(AuthenticationManager authenticationManager,
-            JwtProvider jwtTokenProvider) {
+            JwtProvider jwtTokenProvider, UserRepository userRepository, RoleRepository roleRepository,
+            PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -28,7 +43,6 @@ public class AuthServiceImpl implements AuthService {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                 loginDTO.getUsername(), loginDTO.getPassword());
 
-        System.out.println("aaa1" + usernamePasswordAuthenticationToken);
         Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
         // đặt thông tin xác thực vào context bảo mật của Spring Security, để ứng dụng
@@ -36,13 +50,38 @@ public class AuthServiceImpl implements AuthService {
         // Chẳng hạn, có thể sử dụng annotations như @Secured, @PreAuthorize,
         // @PostAuthorize để kiểm soát quyền truy cập vào các phương thức hoặc API trong
         // ứng dụng.
-        System.out.println("aaaaaaaaaaa");
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = jwtTokenProvider.generateToken(authentication);
 
         return token;
 
+    }
+
+    public String register(RegisterDTO registerDTO) {
+
+        if (userRepository.existsByUsername(registerDTO.getUsername())) {
+            throw new Apiexception("Username already exits in database");
+        }
+
+        User user = new User();
+        user.setUsername((registerDTO.getUsername()));
+        user.setEmail((registerDTO.getEmail()));
+
+        String passwordHash = passwordEncoder.encode(registerDTO.getPassword());
+        user.setPassword(passwordHash);
+
+        user.setFull_name((registerDTO.getFullName()));
+
+        Role roleUser = roleRepository.findByRoleName("ROLE_USER").orElseThrow(
+                () -> new Apiexception("Không tồn tại ROLE_USER trong database"));
+
+        Set<Role> rolesDefault = new HashSet<>();
+        rolesDefault.add(roleUser);
+
+        user.setRoles(rolesDefault);
+        userRepository.save(user);
+        return "Register success";
     }
 
 }

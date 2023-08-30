@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ErrorResponseNotFound {
+public class ErrorResponse {
     private String message;
     private int status;
     private Object data;
