@@ -1,11 +1,9 @@
 package com.blog.blog.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,18 +11,21 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.blog.blog.exception.JWTAuthenticationEntryPoint;
+import com.blog.blog.jwt.JwtFilter;
 
 @Configuration // annotation này để spring biết đây là file cấu hình
 @EnableWebSecurity
 public class SpringSecurityConfiguration {
 
-    JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private JwtFilter jwtFilter;
 
-    public SpringSecurityConfiguration(JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+    public SpringSecurityConfiguration(JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtFilter jwtFilter) {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+        this.jwtFilter = jwtFilter;
     }
 
     @Bean
@@ -54,8 +55,12 @@ public class SpringSecurityConfiguration {
                 // disable session
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        // http.addFilterBefore(jwtAuthenticationFilter,
-        // UsernamePasswordAuthenticationFilter.class);
+        // thêm bộ lọc jwtFilter vào chuỗi bộ lọc trước bộ lọc
+        // UsernamePasswordAuthenticationFilter
+        // nếu có jwt thì set kiểm tra jwtFilter thỏa mãn, người dùng đăng nhập thành
+        // công
+        // nếu không có jwt thì kiểm tra UsernamePasswordAuthenticationFilter
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

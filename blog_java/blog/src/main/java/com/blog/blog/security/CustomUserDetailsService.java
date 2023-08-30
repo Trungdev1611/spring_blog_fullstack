@@ -32,12 +32,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         System.out.println("vao day login " + username);
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundEx());
-        System.out.println("user " + user.getUsername() + user.getPassword());
         // lấy các quyền của user tìm được
         Set<GrantedAuthority> authorities = user.getRoles().stream()
                 .map((role) -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toSet());
 
-        System.out.println("11111" + user.toString());
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 authorities);
     }
