@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.blog.Response.ResponseSuccess;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/posts")
 @CrossOrigin(origins = "http://127.0.0.1:5173/", allowCredentials = "true")
@@ -34,7 +36,7 @@ public class PostController {
     @PreAuthorize("hasAnyRole('ADMIN','USER')") // khi không có quyền truy cập trong do phân quyền, spring sẽ tự động
                                                 // ném ra lỗi AccessDeniedException
     @PostMapping("/create_post")
-    public ResponseEntity<ResponseSuccess> createPost(@RequestBody PostDTO postDTO) {
+    public ResponseEntity<ResponseSuccess> createPost(@Valid @RequestBody PostDTO postDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println("role user::: " + authentication.getAuthorities()); // in ra role user hiện tại
         ResponseSuccess reponse = new ResponseSuccess(postService.createPost(postDTO));
