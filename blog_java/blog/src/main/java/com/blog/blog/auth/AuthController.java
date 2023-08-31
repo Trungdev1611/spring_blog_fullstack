@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.blog.jwt.JwtResponse;
 
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,14 +26,14 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> postMethodName(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<JwtResponse> postMethodName(@Valid @RequestBody LoginDTO loginDTO) {
 
         JwtResponse jwtResponse = new JwtResponse("Bearer", authService.login(loginDTO));
         return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<String> postMethodName(@RequestBody RegisterDTO registerDTO) {
+    public ResponseEntity<String> postMethodName(@Valid @RequestBody RegisterDTO registerDTO) {
 
         return new ResponseEntity<>(authService.register(registerDTO), HttpStatus.CREATED);
     }

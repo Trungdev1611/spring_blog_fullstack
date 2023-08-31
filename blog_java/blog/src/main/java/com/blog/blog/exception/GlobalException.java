@@ -1,13 +1,20 @@
 package com.blog.blog.exception;
 
+import java.util.ArrayList;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.blog.blog.ErrorDTO.ErrorResponse;
+
+import java.util.List;
 
 @ControllerAdvice
 public class GlobalException {
@@ -52,5 +59,22 @@ public class GlobalException {
                 // ex.getMessage()
                 "Không có quyền truy cập tài nguyên", 0, null);
         return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+    }
+
+    // xử lý validation
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException ex) {
+        BindingResult bindingResult = ex.getBindingResult();
+        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+
+        String errors = "";
+        // có nhiều lỗi trong trường mảng fieldErrors thì ta nối nó thành 1 chuỗi
+        for (FieldError fieldError : fieldErrors) {
+            errors = errors + ", " + (fieldError.getDefaultMessage());
+        }
+        String errorsSubString = errors.substring(2);
+
+        ErrorResponse errorData = new ErrorResponse(errorsSubString, HttpStatus.BAD_REQUEST.value(), null);
+        return new ResponseEntity<>(errorData, HttpStatus.BAD_REQUEST);
     }
 }
