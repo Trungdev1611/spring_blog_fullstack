@@ -8,4 +8,8 @@ public interface PostService {
     List<PostDTO> getAllPost();
 
     PostDTO getPostDetail(Long idPost);
+
+    PostDTO updatePost(PostDTO postDTO, Long idPost);
+
+    void deletePost(Long idPost);
 }

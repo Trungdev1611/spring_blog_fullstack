@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import com.blog.blog.exception.ApiException;
+import com.blog.blog.exception.TokenException;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -68,16 +69,16 @@ public class JwtProvider {
                     .parse(tokenValidate);
             return true;
         } catch (MalformedJwtException ex) {
-            throw new ApiException("InvalidJwt");
+            throw new TokenException("InvalidJwt");
         } catch (ExpiredJwtException ex) {
-            throw new ApiException("Expired Jwt token");
+            throw new TokenException("Expired Jwt token");
         } catch (UnsupportedJwtException ex) {
-            throw new ApiException("Unsupport JWT token");
+            throw new TokenException("Unsupport JWT token");
         } catch (IllegalArgumentException ex) {
-            throw new ApiException("JWT claims string is empty");
+            throw new TokenException("JWT claims string is empty");
         } catch (Exception ex) {
-            // throw new ApiException("loi chua dinh nghia");
-            throw new ApiException("Lỗi chưa định nghĩa: Orther error");
+            // throw new TokenException("loi chua dinh nghia");
+            throw new TokenException("Lỗi chưa định nghĩa: Orther error");
 
         }
 
@@ -87,7 +88,8 @@ public class JwtProvider {
         // láy bearer token từ header authorization request
         String headerBearerRequest = request.getHeader("Authorization");
         System.out.println("token header bearer:: " + headerBearerRequest);
-        if (headerBearerRequest != null && headerBearerRequest.startsWith("Bearer ")) {
+        if (headerBearerRequest != null && !headerBearerRequest.isEmpty()
+                && headerBearerRequest.startsWith("Bearer ")) {
             return headerBearerRequest.substring(7);
         }
 

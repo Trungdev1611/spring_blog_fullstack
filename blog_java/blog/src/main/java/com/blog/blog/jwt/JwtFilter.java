@@ -19,6 +19,7 @@ import com.blog.blog.ErrorDTO.ErrorResponse;
 import com.blog.blog.auth.UserRepository;
 import com.blog.blog.exception.ApiException;
 import com.blog.blog.exception.ResourceNotFoundEx;
+import com.blog.blog.exception.TokenException;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -49,9 +50,9 @@ public class JwtFilter extends OncePerRequestFilter {
             throws IOException, ServletException {
         try {
             String token = jwtProvider.getTokenFromRequestHeader(request);
-
-            System.out.println("1111 " + jwtProvider.verifyToken(token));
-            if (token != null && jwtProvider.verifyToken(token)) {
+            System.out.println("di qua day");
+            // System.out.println("1111 " + jwtProvider.verifyToken(token));
+            if (token != null && !token.trim().isEmpty() && jwtProvider.verifyToken(token)) {
                 String usernameGetFromToken = jwtProvider.getPayloadfromtoken(token);
 
                 // dựa vào username để lấy được thông tin user
@@ -68,6 +69,16 @@ public class JwtFilter extends OncePerRequestFilter {
                 // thể truy cập được vào tài nguyên
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
+
+            else { //bắt lỗi không có token với những request khác login và register
+            String reqPath = request.getRequestURI();  
+            System.out.println("URL request:::"+ reqPath );
+            if ((token == null || reqPath.trim().isEmpty()) && !reqPath.contains("login")
+                    && !reqPath.contains("register")) {
+                throw new TokenException("Không tồn tại token");
+            }
+            }
+           
             // tiếp tục thực hiện những filter khác
             filterChain.doFilter(request, response);
         } catch (Exception e) {

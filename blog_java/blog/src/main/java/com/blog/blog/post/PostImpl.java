@@ -43,6 +43,26 @@ public class PostImpl implements PostService { // implements chỉ sử dụng v
         return convertPostToPostDTO(postDetail);
     }
 
+    @Override
+    public PostDTO updatePost(PostDTO postDTO, Long idPost) {
+
+        Post postGetfromDb = postRepository.findById(idPost).orElseThrow(() -> new ResourceNotFoundEx());
+
+        Post postUpdateSendFromClient = convertPostDTOToPost(postDTO);
+
+        postGetfromDb.setAvatar(postUpdateSendFromClient.getAvatar());
+        postGetfromDb.setContent(postUpdateSendFromClient.getContent());
+        postGetfromDb.setHeading(postUpdateSendFromClient.getHeading());
+        postRepository.save(postGetfromDb);
+        return convertPostToPostDTO(postUpdateSendFromClient);
+    }
+
+    @Override
+    public void deletePost(Long idPost) {
+        postRepository.findById(idPost).orElseThrow(() -> new ResourceNotFoundEx());
+        postRepository.deleteById(idPost);
+    }
+
     public PostDTO convertPostToPostDTO(Post post) {
         PostDTO newPostDTO = new PostDTO();
         newPostDTO.setHeading(post.getHeading());
