@@ -62,6 +62,9 @@ public class JwtProvider {
         // resolver.resolveException(request, response, null, e); thì mới bắt được lỗi ở
         // đây
         System.out.println("token validate:: " + tokenValidate);
+        if (tokenValidate == null) {
+            return false;
+        }
         try {
             Jwts.parserBuilder()
                     .setSigningKey(key())

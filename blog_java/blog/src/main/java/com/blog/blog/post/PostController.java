@@ -21,7 +21,7 @@ import com.blog.blog.Response.ResponseSuccess;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/api/v1/posts")
 @CrossOrigin(origins = "http://127.0.0.1:5173/", allowCredentials = "true")
 
 public class PostController {

@@ -37,7 +37,7 @@ public class SpringSecurityConfiguration {
                 // luồng auth cho truy cập mà không cần bảo vệ
                 .authorizeHttpRequests((authorize) -> authorize.requestMatchers(HttpMethod.GET, "/").permitAll()
 
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/v1/auth/**").permitAll()
 
                         .anyRequest().authenticated())
                 // bắt exception ở đây
