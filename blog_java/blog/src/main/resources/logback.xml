@@ -1,0 +1,20 @@
+<configuration>
+    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/myapp.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/myapp.%d{dd/mm/yyyy}.%i.log</fileNamePattern>
+              <!-- max size của file log -->
+            <maxFileSize>10MB</maxFileSize>
+
+            <!-- số file lưu tối đa (sẽ chỉ giữ 7 file 10MB, file thứ 8 thì file đầu sẽ bị xóa) -->
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy} - %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- INFO để chỉ rằng các cấp độ log cao hơn info sẽ được log (thứ tự cấp độ TRACE, DEBUG, INFO, WARN, ERROR.) -->
+    <root level="INFO">
+        <appender-ref ref="rollingFile"/>
+    </root>
+</configuration>
