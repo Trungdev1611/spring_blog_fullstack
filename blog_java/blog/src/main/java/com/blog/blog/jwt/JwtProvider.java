@@ -90,7 +90,7 @@ public class JwtProvider {
     public String getTokenFromRequestHeader(HttpServletRequest request) {
         // láy bearer token từ header authorization request
         String headerBearerRequest = request.getHeader("Authorization");
-        System.out.println("token header bearer:: " + request);
+        System.out.println("token header bearer:: " + headerBearerRequest);
         if (headerBearerRequest != null && !headerBearerRequest.isEmpty()
                 && headerBearerRequest.startsWith("Bearer ")) {
             return headerBearerRequest.substring(7);

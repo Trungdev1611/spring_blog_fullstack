@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("api/v1/auth")
-@CrossOrigin(origins = "http://127.0.0.1:5173/", allowCredentials = "true")
+// @CrossOrigin(origins = "http://127.0.0.1:5173/", allowCredentials = "true")
 public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     private AuthService authService;
