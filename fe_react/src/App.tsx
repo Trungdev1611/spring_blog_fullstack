@@ -1,20 +1,15 @@
-
-import { useEffect } from 'react'
-import './App.css'
-import { Apiclient } from './apis/config'
-
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 function App() {
-  useEffect(() => {
-   async  function getData() {
-      const res = await Apiclient.get("/api/posts")
-      console.log("res", res)
-    }
-    getData()
-  }, [])
   return (
-      <h1>Helllo ReactJs</h1>
-      
-  )
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;

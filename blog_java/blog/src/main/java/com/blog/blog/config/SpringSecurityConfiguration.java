@@ -46,7 +46,7 @@ public class SpringSecurityConfiguration {
         http.csrf(csrf -> csrf.disable()) // disable csrf bảo vệ
 
                 // luồng auth cho truy cập mà không cần bảo vệ
-                .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/api/auth/**").permitAll()
+                .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/api/v1/auth/**").permitAll()
                         // .requestMatchers("/api/posts/create_post").permitAll()
 
                         .anyRequest().authenticated())

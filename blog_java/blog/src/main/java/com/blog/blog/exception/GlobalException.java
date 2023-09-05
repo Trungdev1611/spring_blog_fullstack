@@ -38,7 +38,7 @@ public class GlobalException {
 
         // biến ex sẽ mang các đối số từ việc throw qua đây
         ErrorResponse errorData = new ErrorResponse(ex.getMessage(), ex.getStatus(), ex.getData());
-        return new ResponseEntity<>(errorData, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorData, HttpStatus.BAD_REQUEST);
 
     }
 

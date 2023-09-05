@@ -1,7 +1,7 @@
 import axios from "axios";
 import queryString from "query-string";
 
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = "http://localhost:8080/api/v1";
 // const BASE_URL = "https://api-generator.retool.com";
 
 const instance = axios.create({
@@ -16,7 +16,10 @@ instance.interceptors.request.use(
     // Do something before request is sent
     const token = localStorage.getItem("token");
     console.log(`tokenn`, token);
-    config.headers.authorization = "Bearer " + token; //cấu hình token cho all request
+    if(token) {
+      config.headers.authorization = "Bearer " + token; //cấu hình token cho all request
+
+    }
     return config;
   },
   function (error) {
@@ -28,11 +31,11 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   function (response) {
-    return response.data;
+    return response;
   },
   function (error) {
     console.log("error config", error);
-    return Promise.reject(error);
+    return Promise.reject(error?.response?.data);
   }
 );
 
