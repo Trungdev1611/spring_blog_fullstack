@@ -14,6 +14,8 @@ const LoginForm = () => {
           const  res = await Apiclient.post(`/auth/login`, values)
           if(res?.status) {
             alert("login success")
+            console.log("res", res)
+            localStorage.setItem("token", res.data?.data)
             navigate("/")
           }
         } catch (error) {

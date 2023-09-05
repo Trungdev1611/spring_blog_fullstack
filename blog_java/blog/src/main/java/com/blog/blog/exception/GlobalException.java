@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.blog.blog.ErrorDTO.ErrorResponse;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+
 import java.util.List;
+import java.util.Set;
 
 @ControllerAdvice
 public class GlobalException {
@@ -75,6 +79,23 @@ public class GlobalException {
         String errorsSubString = errors.substring(2);
 
         ErrorResponse errorData = new ErrorResponse(errorsSubString, HttpStatus.BAD_REQUEST.value(), null);
+        return new ResponseEntity<>(errorData, HttpStatus.BAD_REQUEST);
+    }
+
+    // xử lý exception khi validate trong entity mà không phải DTO
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex) {
+
+        Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
+
+        String errors = "";
+        // có nhiều lỗi trong trường mảng fieldErrors thì ta nối nó thành 1 chuỗi
+        for (ConstraintViolation<?> constraintViolation : constraintViolations) {
+            errors = errors + ", " + (constraintViolation.getMessage());
+        }
+        String errorsSubString = errors.substring(2);
+
+        ErrorResponse errorData = new ErrorResponse(errorsSubString, 0, null);
         return new ResponseEntity<>(errorData, HttpStatus.BAD_REQUEST);
     }
 }

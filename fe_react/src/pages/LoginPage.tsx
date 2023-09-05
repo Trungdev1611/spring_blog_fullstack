@@ -3,13 +3,17 @@ import { Divider } from "antd";
 import {Link} from 'react-router-dom'
 import { GooglePlusOutlined, AppleOutlined } from "@ant-design/icons";
 import LoginForm from "../components/LoginForm";
+import { useEffect } from "react";
 
 const LoginPage = () => {
+  useEffect(() => {
+    localStorage.removeItem("token")
+  }, [])
   return (
     <div>
       <Heading>Đăng nhập</Heading>
       
-      <RegisterContainer isLogin>
+      <RegisterContainer $isLogin = {true}>
         <div style={{width: "80%", display: "flex", justifyContent: "center"}}>
           <LoginForm />
         </div>

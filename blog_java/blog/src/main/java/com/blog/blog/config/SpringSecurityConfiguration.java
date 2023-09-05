@@ -1,5 +1,7 @@
 package com.blog.blog.config;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.blog.blog.exception.JWTAuthenticationEntryPoint;
 import com.blog.blog.jwt.JwtFilter;
@@ -43,14 +48,14 @@ public class SpringSecurityConfiguration {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(csrf -> csrf.disable()) // disable csrf bảo vệ
+        http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable()) // disable csrf b?o v?
 
-                // luồng auth cho truy cập mà không cần bảo vệ
+                // lu?ng auth cho truy c?p mà không c?n b?o v?
                 .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/api/v1/auth/**").permitAll()
                         // .requestMatchers("/api/posts/create_post").permitAll()
 
                         .anyRequest().authenticated())
-                // bắt exception ở đây -- các excetion không có quyền truy cập tài nguyên
+                // b?t exception ? ?ây -- các excetion không có quy?n truy c?p tài nguyên
                 .exceptionHandling((ex) -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
 
                 // disable session
@@ -64,5 +69,15 @@ public class SpringSecurityConfiguration {
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5173"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

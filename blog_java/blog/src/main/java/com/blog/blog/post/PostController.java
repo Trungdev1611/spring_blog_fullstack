@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.blog.Response.ResponseSuccess;
+import com.blog.blog.security.CustomUserDetailsService;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/posts")
-@CrossOrigin(origins = "http://127.0.0.1:5173/", allowCredentials = "true")
+@CrossOrigin(origins = "http://127.0.0.1:5173", allowCredentials = "true")
 
 public class PostController {
 
@@ -37,17 +39,14 @@ public class PostController {
                                                 // ném ra lỗi AccessDeniedException
     @PostMapping("/create_post")
     public ResponseEntity<ResponseSuccess> createPost(@Valid @RequestBody PostDTO postDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("role user::: " + authentication.getAuthorities()); // in ra role user hiện tại
+
         ResponseSuccess reponse = new ResponseSuccess(postService.createPost(postDTO));
         return new ResponseEntity<>(reponse, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("")
     public ResponseEntity<ResponseSuccess> getAllPost() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("role user::: " + authentication.getAuthorities()); // in ra role user hiện tại
         ResponseSuccess reponse = new ResponseSuccess(postService.getAllPost());
         return new ResponseEntity<>(reponse, HttpStatus.OK);
     }

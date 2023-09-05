@@ -1,15 +1,14 @@
 import { styled } from "styled-components";
 
-interface RegisterProps {
-  isLogin?: boolean;
-}
-export const RegisterContainer = styled.div<RegisterProps>`
+export const RegisterContainer = styled.div<{
+  $isLogin: boolean;
+}>`
   display: flex;
   gap: 30px;
   margin-top: 40px;
   justify-content: center;
   align-items: center;
-  flex-direction: ${props => props.isLogin ? 'column': "horizontal"};
+  flex-direction: ${props => props.$isLogin ? 'column': "horizontal"};
   @media (max-width: 600px) {
     flex-direction: column;
     }

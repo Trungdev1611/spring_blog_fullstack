@@ -50,7 +50,6 @@ public class JwtFilter extends OncePerRequestFilter {
             throws IOException, ServletException {
         try {
             String token = jwtProvider.getTokenFromRequestHeader(request);
-            System.out.println("di qua day " + token);
             // System.out.println("1111 " + jwtProvider.verifyToken(token));
             if (token != null && !token.trim().isEmpty() && jwtProvider.verifyToken(token)) {
                 String usernameGetFromToken = jwtProvider.getPayloadfromtoken(token);

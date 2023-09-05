@@ -1,8 +1,9 @@
 package com.blog.blog.auth;
 
-import java.util.Set;
+import java.util.*;
 
 import com.blog.blog.Role.Role;
+import com.blog.blog.post.Post;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -54,4 +56,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
+    // mappedBy ở đây là để trả ra field User user trong Post entity,
+    // CascadeType.ALL là xóa thằng user thì post của nó cũng xóa
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Post> posts;
 }
