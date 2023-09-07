@@ -1,5 +1,7 @@
 import { CalendarOutlined, CommentOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
+import { PostItemProps } from "./Types";
 
 const PostItemContainer = styled.div`
   display: flex;
@@ -79,15 +81,12 @@ const CommentWrapper = styled.div`
     }
   }
 `;
-interface PostItemProps {
-    heading?: string;
-    author?: string;
-    brief?: string;
-    date?: string | null;
-    timeRead?: string;
-    counter_comments?: string;
+
+const PostItem = ({heading, authorName, content, dateCreated, timeRead, counter_comments, id }: PostItemProps) => {
+  const navigate = useNavigate()
+  function navigateDetailPost() {
+   id &&  navigate(`post_detail/${id}`)
   }
-const PostItem = ({heading, author, brief, date, timeRead, counter_comments }: PostItemProps) => {
   return (
     <PostItemContainer>
       <div className="img-wrapper">
@@ -98,15 +97,15 @@ const PostItem = ({heading, author, brief, date, timeRead, counter_comments }: P
       </div>
 
       <div className="post_info">
-        <div className="author">{author}</div>
-        <div className="heading">
+        <div className="author">{authorName}</div>
+        <div className="heading" onClick={navigateDetailPost}>
          {heading}
         </div>
         <div className="post-content">
           <div className="content">
-            <span className="date">{date}</span>
+            <span className="date">{dateCreated|| "Oct 16, 1994"}</span>
             <span className="description">
-             {brief}
+             {content}
             </span>
           </div>
           <CommentWrapper>

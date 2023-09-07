@@ -19,6 +19,7 @@ import lombok.ToString;
 public class PostDTO {
 
     @NotBlank
+    private Long Id;
     private String heading;
 
     private String avatar;

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PostItem from "./PostItem";
 import { styled } from "styled-components";
 import { Apiclient } from "../apis/config";
+import { PostItemProps } from "./Types";
 
 const PostContainer = styled.div`
   display: flex;
@@ -12,21 +13,15 @@ const PostContainer = styled.div`
     max-width: 90vw;
   }
 `;
-interface ListPostType {
-  heading: string;
-  avatar: string;
-  content: string;
-  dateCreated: null | string;
-  authorName: string;
-  authorId: number;
-}
+
 const ListPostComponent = () => {
-  const [listPost, setListPost] = useState<ListPostType[]>([]);
+  const [listPost, setListPost] = useState<PostItemProps[]>([]);
   useEffect(() => {
     async function getAllPost() {
       try {
         const res = await Apiclient.get(`/posts`);
         if (res.status) {
+          console.log("resdata", res);
           setListPost(res.data);
         }
       } catch (error) {
@@ -41,18 +36,14 @@ const ListPostComponent = () => {
         return (
           <PostItem
             key={index}
-            author={item.authorName}
-            brief={item.content.slice(0, 100)}
-            date={item.dateCreated}
+            authorName={item.authorName}
+            content={item.content.slice(0, 200)}
+            dateCreated={item.dateCreated}
+            id={item.id}
+            avatar={item.avatar}
           />
         );
       })}
-      {/* <PostItem />
-      <PostItem />
-      <PostItem />
-      <PostItem />
-      <PostItem />
-      <PostItem /> */}
     </PostContainer>
   );
 };

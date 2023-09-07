@@ -47,17 +47,22 @@ public class PostImpl implements PostService { // implements chỉ sử dụng v
         return convertPostToPostDTO(postGetFromDB);
     }
 
+    // @Override
+    // public List<PostDTO> getAllPost() {
+    // return postRepository.findAll().stream()
+    // .map(this::convertPostToPostDTO)
+    // .collect(Collectors.toList());
+    // }
+
     @Override
-    public List<PostDTO> getAllPost() {
-        return postRepository.findAll().stream()
-                .map(this::convertPostToPostDTO)
-                .collect(Collectors.toList());
+    public List<?> getAllPost() {
+        return postRepository.findAllPostAndUserInfo().stream().collect(Collectors.toList());
     }
 
     @Override
-    public PostDTO getPostDetail(Long idPost) {
+    public Post getPostDetail(Long idPost) {
         Post postDetail = postRepository.findById(idPost).orElseThrow(() -> new ResourceNotFoundEx());
-        return convertPostToPostDTO(postDetail);
+        return postDetail;
     }
 
     @Override
@@ -87,6 +92,7 @@ public class PostImpl implements PostService { // implements chỉ sử dụng v
         newPostDTO.setAvatar(post.getAvatar());
         newPostDTO.setAuthorName(post.getUser().getUsername());
         newPostDTO.setAuthorId(post.getUser().getId());
+        newPostDTO.setId(post.getId());
         return newPostDTO;
 
     }
