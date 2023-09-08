@@ -66,3 +66,10 @@ export const TypeLogin = styled.div`
     color: grey;
   }
 `;
+
+
+export const ListPostContainer = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+`;

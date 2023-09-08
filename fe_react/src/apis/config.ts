@@ -4,6 +4,7 @@ import queryString from "query-string";
 const BASE_URL = "http://localhost:8080/api/v1";
 // const BASE_URL = "https://api-generator.retool.com";
 
+
 const instance = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
@@ -34,7 +35,10 @@ instance.interceptors.response.use(
     return response.data;
   },
   function (error) {
-    console.log("error config", error);
+    console.log("error config", error, window.location);
+    if(error.response?.status === 401) {
+      // window.location.href = "http://127.0.0.1:5173/login"
+    }
     return Promise.reject(error?.response?.data);
   }
 );

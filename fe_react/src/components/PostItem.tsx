@@ -1,112 +1,45 @@
 import { CalendarOutlined, CommentOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
-import { PostItemProps } from "./Types";
+import { PropstypePost } from "./Types";
+import { CommentWrapper, PostItemContainer } from "../styled/styledPostItem";
 
-const PostItemContainer = styled.div`
-  display: flex;
-  gap: 20px;
-  .img-wrapper {
-    width: 80px;
-    height: 80px;
-    border: 3px solid red;
-    transform: rotate(-20deg);
-    border-radius: 15px;
-    flex: 0 0 auto;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-  }
-  .post-content {
-    display: flex;
-    gap: 50px;
-    @media (max-width: 768px) {
-        flex-direction: column-reverse;
-        gap: 20px
-    }
-  }
-  .post_info {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    .author {
-      color: #d33a2c;
-      font-size: 18px;
-      font-weight: 600;
-    }
-    .heading {
-      color: #333;
-      transition: color 0.1s linear;
-      font-size: 26px;
-      max-width: 70%;
-      font-weight: 600;
-      &:hover {
-        color: #d33a2c;
-        cursor: pointer;
-      }
-    }
-    .content {
-      line-height: 26px;
-      .date {
-        color: #aaa;
-        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-          "Lucida Sans", Arial, sans-serif;
-        margin-right: 20px;
-        text-transform: uppercase;
-      }
-      .description {
-        color: #333;
-      }
-    }
-  }
-`;
-
-const CommentWrapper = styled.div`
-  line-height: 26px;
-  min-width: 200px;
-  .info {
-    display: flex;
-    gap: 10px;
-    .icon {
-      color: #d33a2c;
-    }
-    .text {
-      color: #333;
-      &.under-line {
-        text-decoration: underline;
-      }
-    }
-  }
-`;
-
-const PostItem = ({heading, authorName, content, dateCreated, timeRead, counter_comments, id }: PostItemProps) => {
-  const navigate = useNavigate()
+const PostItem = ({
+  fullNameUser,
+  contentPost,
+  dateCreated,
+  idPost,
+  headingPost,
+  profile_picture,
+  email,timeRead, counter_comments
+}: PropstypePost) => {
+  const navigate = useNavigate();
   function navigateDetailPost() {
-   id &&  navigate(`post_detail/${id}`)
+    idPost && navigate(`post_detail/${idPost}`);
+  }
+
+  function navigateDetailAuthor() {
+    fullNameUser && navigate(`author/${fullNameUser}`);
   }
   return (
     <PostItemContainer>
       <div className="img-wrapper">
         <img
-          src="https://files.smashing.media/authors/hannah-milan-200px.jpg"
+          src={profile_picture}
           alt="img1"
         />
       </div>
 
       <div className="post_info">
-        <div className="author">{authorName}</div>
+        <div className="author" onClick={navigateDetailAuthor}>
+          {fullNameUser}
+        </div>
         <div className="heading" onClick={navigateDetailPost}>
-         {heading}
+          {headingPost}
         </div>
         <div className="post-content">
           <div className="content">
-            <span className="date">{dateCreated|| "Oct 16, 1994"}</span>
-            <span className="description">
-             {content}
-            </span>
+            <span className="date">{dateCreated || "Oct 16, 1994"}</span>
+            <span className="description">{contentPost}</span>
           </div>
           <CommentWrapper>
             <div className="info">
@@ -129,14 +62,15 @@ const PostItem = ({heading, authorName, content, dateCreated, timeRead, counter_
   );
 };
 
-PostItem.defaultProps =  {
-    heading: "Designing Accessible Text Over Images: Best Practices, Techniques And Resources (Part 2)",
-    author: "Hannah Milan",
-    date: "august 4, 2023",
-    brief: `In this two-part series of articles, Hannah Milan covers the best
+PostItem.defaultProps = {
+  heading:
+    "Designing Accessible Text Over Images: Best Practices, Techniques And Resources (Part 2)",
+  author: "Hannah Milan",
+  date: "august 4, 2023",
+  brief: `In this two-part series of articles, Hannah Milan covers the best
     practices when using various accessible text over images
     techniques for designing your web and mobile app content.`,
-    timeRead: `12 min read`,
-    counter_comments: `2 comments`
-}
+  timeRead: `12 min read`,
+  counter_comments: `2 comments`,
+};
 export default PostItem;

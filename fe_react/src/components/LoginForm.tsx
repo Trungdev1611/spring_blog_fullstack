@@ -15,7 +15,7 @@ const LoginForm = () => {
           if(res?.status) {
             alert("login success")
             console.log("res", res)
-            localStorage.setItem("token", res.data?.data)
+            localStorage.setItem("token", res.data)
             navigate("/")
           }
         } catch (error) {

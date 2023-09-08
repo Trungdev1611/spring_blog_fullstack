@@ -36,11 +36,13 @@ const ListPostComponent = () => {
         return (
           <PostItem
             key={index}
-            authorName={item.authorName}
-            content={item.content.slice(0, 200)}
+            fullNameUser={item.user.full_name}
+            contentPost={item.content.slice(0, 200)}
             dateCreated={item.dateCreated}
-            id={item.id}
-            avatar={item.avatar}
+            idPost={item.id}
+            profile_picture={item.user.profile_picture}
+            email = {item.user.email}
+            headingPost = {item.heading}
           />
         );
       })}

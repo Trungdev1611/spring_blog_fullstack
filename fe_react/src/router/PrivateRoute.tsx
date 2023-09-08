@@ -1,4 +1,5 @@
 import {Navigate} from 'react-router-dom'
+import { ListPostContainer } from '../styled/common';
 
 interface ChildrenProps {
     children: JSX.Element;
@@ -9,7 +10,7 @@ const PrivateRoute = ({children}:ChildrenProps ) => {
     if (!token) {
         return <Navigate to="/login" />;
       } else {
-        return children;
+        return <ListPostContainer>{children}</ListPostContainer> ;
       }
  
 }
