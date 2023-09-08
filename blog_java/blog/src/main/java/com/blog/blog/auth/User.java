@@ -46,6 +46,8 @@ public class User {
 
     private String email;
 
+    private String profile_picture;
+
     // thiết lập bảng chung giữa table User và Role
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // EAGER nghĩa là khi load user thì cũng load luôn
                                                                     // role của nó

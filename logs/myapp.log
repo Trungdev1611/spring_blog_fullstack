@@ -1,0 +1,36 @@
+08/09 - 15:36 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+08/09 - 15:36 [restartedMain] INFO  com.blog.blog.BlogApplication - Starting BlogApplication using Java 17.0.7 with PID 21228 (D:\person\fullblog\spring_blog_fullstack\blog_java\blog\target\classes started by person 1 in D:\person\fullblog\spring_blog_fullstack)
+08/09 - 15:36 [restartedMain] INFO  com.blog.blog.BlogApplication - No active profile set, falling back to 1 default profile: "default"
+08/09 - 15:36 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+08/09 - 15:36 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+08/09 - 15:36 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+08/09 - 15:36 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 83 ms. Found 3 JPA repository interfaces.
+08/09 - 15:36 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+08/09 - 15:36 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+08/09 - 15:36 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+08/09 - 15:36 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.12]
+08/09 - 15:36 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+08/09 - 15:36 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1574 ms
+08/09 - 15:36 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+08/09 - 15:36 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.7.Final
+08/09 - 15:36 [restartedMain] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+08/09 - 15:36 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+08/09 - 15:36 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+08/09 - 15:36 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+08/09 - 15:36 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2d3c3771
+08/09 - 15:36 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+08/09 - 15:36 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+08/09 - 15:36 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+08/09 - 15:36 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+08/09 - 15:36 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+08/09 - 15:36 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+08/09 - 15:36 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5738caa5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2bfef715, org.springframework.security.web.context.SecurityContextHolderFilter@41b3aaf8, org.springframework.security.web.header.HeaderWriterFilter@1f3f2ee1, org.springframework.web.filter.CorsFilter@38c596e8, org.springframework.security.web.authentication.logout.LogoutFilter@1c8c4093, com.blog.blog.jwt.JwtFilter@620dec02, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@dd3c81, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@37e18cbf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@75d3e13f, org.springframework.security.web.session.SessionManagementFilter@537551a8, org.springframework.security.web.access.ExceptionTranslationFilter@67178a65, org.springframework.security.web.access.intercept.AuthorizationFilter@5ad4cdca]
+08/09 - 15:36 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+08/09 - 15:36 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+08/09 - 15:36 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+08/09 - 15:36 [restartedMain] INFO  com.blog.blog.BlogApplication - Started BlogApplication in 5.243 seconds (process running for 5.988)
+08/09 - 15:36 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+08/09 - 15:36 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+08/09 - 15:36 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+08/09 - 15:36 [http-nio-8080-exec-1] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'id' for method parameter type Long is not present]
+08/09 - 15:37 [http-nio-8080-exec-4] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'id' for method parameter type Long is not present]

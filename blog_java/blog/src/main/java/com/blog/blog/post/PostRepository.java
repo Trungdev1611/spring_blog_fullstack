@@ -14,8 +14,21 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     // @Query("select new com.blog.blog.post.PostDTOTest(e.id, e.heading, e.avatar,
     // e.content, e.dateCreated, e.user.full_name, e.user.email) from Post e")
+
     // List<PostDTOTest> findAllPostAndUserInfo();
 
-    @Query("select new com.blog.blog.post.PostDTOTest(e.id, e.heading, e.avatar, e.content, e.dateCreated, e.user.full_name, e.user.email) from Post e")
+    // @Query("SELECT e.id AS id, e.heading AS heading, e.avatar AS avatar,
+    // e.content AS content, e.dateCreated AS dateCreated, e.user.full_name AS
+    // full_name, e.user.email AS email, e.user.profile_picture AS profile_picture
+    // FROM Post e")
+    // List<ProjectionPost> findAllPostAndUserInfo();
+
+    // @Query bên dưới là JPQL, có thể viết native query cũng ok,
+    // Lưu ý khi sử dụng JPQL thì FROM Post với Post là tên entity, các method
+    // interface trong projection là tên field trong entity
+    // còn trong native query thì Post là tên bảng, các method interface trong
+    // projection là tên cột
+    @Query("SELECT e.id AS id, e.heading AS heading, e.avatar AS avatar, e.content AS content, e.dateCreated AS dateCreated, e.user AS user FROM Post e")
     List<ProjectionPost> findAllPostAndUserInfo();
+
 }

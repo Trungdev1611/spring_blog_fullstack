@@ -9,6 +9,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingPathVariableException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -97,5 +99,19 @@ public class GlobalException {
 
         ErrorResponse errorData = new ErrorResponse(errorsSubString, 0, null);
         return new ResponseEntity<>(errorData, HttpStatus.BAD_REQUEST);
+    }
+
+    // xử lý exception khi thiếu parameter trong request
+
+    @ExceptionHandler(MissingPathVariableException.class)
+    public ResponseEntity<String> handleMissingPathVariable(MissingPathVariableException ex) {
+        // Xử lý khi không tìm thấy path variable
+        return new ResponseEntity<>("Missing path variable: " + ex.getVariableName(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<String> handleMissingRequestParam(MissingServletRequestParameterException ex) {
+        // Xử lý khi không tìm thấy query parameter
+        return new ResponseEntity<>("Missing query parameter: " + ex.getParameterName(), HttpStatus.BAD_REQUEST);
     }
 }
