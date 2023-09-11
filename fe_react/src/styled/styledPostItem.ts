@@ -3,20 +3,7 @@ import { styled } from "styled-components";
 export const PostItemContainer = styled.div`
   display: flex;
   gap: 20px;
-  .img-wrapper {
-    width: 80px;
-    height: 80px;
-    border: 3px solid red;
-    transform: rotate(-20deg);
-    border-radius: 15px;
-    flex: 0 0 auto;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-  }
+  
   .post-content {
     display: flex;
     gap: 50px;

@@ -1,14 +1,13 @@
-import { useParams } from 'react-router-dom'
+import { useParams } from "react-router-dom";
+import Author from "../components/Author/Author";
+import { WidthContainer } from "../styled/common";
 const AuthorPage = () => {
-    const params = useParams()
-    const author_name =params.author_name
+  const params = useParams();
+  const author_name = params.author_name;
   return (
-    <div>
-      AuthorPage {author_name} hiển thị các thông tin như 
-      thông tin tóm tắt về người đó -resume
-      Các list bài post theo id  của người đó
-    </div>
-  )
-}
+      <Author/>
 
-export default AuthorPage
+  );
+};
+
+export default AuthorPage;

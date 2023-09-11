@@ -3,15 +3,13 @@ import PostItem from "./PostItem";
 import { styled } from "styled-components";
 import { Apiclient } from "../apis/config";
 import { PostItemProps } from "./Types";
+import { ContainerFlexCenter, WidthContainer } from "../styled/common";
 
 const PostContainer = styled.div`
   display: flex;
   gap: 35px;
+  margin-top: 35px;
   flex-direction: column;
-  max-width: 70vw;
-  @media (max-width: 768px) {
-    max-width: 90vw;
-  }
 `;
 
 const ListPostComponent = () => {
@@ -31,22 +29,26 @@ const ListPostComponent = () => {
     getAllPost();
   }, []);
   return (
-    <PostContainer>
-      {listPost.map((item, index) => {
-        return (
-          <PostItem
-            key={index}
-            fullNameUser={item.user.full_name}
-            contentPost={item.content.slice(0, 200)}
-            dateCreated={item.dateCreated}
-            idPost={item.id}
-            profile_picture={item.user.profile_picture}
-            email = {item.user.email}
-            headingPost = {item.heading}
-          />
-        );
-      })}
-    </PostContainer>
+    <ContainerFlexCenter $isRed={false}>
+      <WidthContainer>
+        <PostContainer>
+          {listPost.map((item, index) => {
+            return (
+              <PostItem
+                key={index}
+                fullNameUser={item.user.full_name}
+                contentPost={item.content.slice(0, 200)}
+                dateCreated={item.dateCreated}
+                idPost={item.id}
+                profile_picture={item.user.profile_picture}
+                email={item.user.email}
+                headingPost={item.heading}
+              />
+            );
+          })}
+        </PostContainer>
+      </WidthContainer>
+    </ContainerFlexCenter>
   );
 };
 

@@ -2,6 +2,7 @@ import { CalendarOutlined, CommentOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { PropstypePost } from "./Types";
 import { CommentWrapper, PostItemContainer } from "../styled/styledPostItem";
+import Avatar from "./common/Avatar";
 
 const PostItem = ({
   fullNameUser,
@@ -22,13 +23,7 @@ const PostItem = ({
   }
   return (
     <PostItemContainer>
-      <div className="img-wrapper">
-        <img
-          src={profile_picture}
-          alt="img1"
-        />
-      </div>
-
+    <Avatar linkAvatar= {profile_picture} />
       <div className="post_info">
         <div className="author" onClick={navigateDetailAuthor}>
           {fullNameUser}

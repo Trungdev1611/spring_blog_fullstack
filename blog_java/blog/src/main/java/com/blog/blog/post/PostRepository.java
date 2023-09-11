@@ -2,7 +2,11 @@ package com.blog.blog.post;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import com.blog.blog.auth.PostInUserProjection;
+
 import java.util.*;
 
 @Repository
@@ -30,5 +34,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     // projection là tên cột
     @Query("SELECT e.id AS id, e.heading AS heading, e.avatar AS avatar, e.content AS content, e.dateCreated AS dateCreated, e.user AS user FROM Post e")
     List<ProjectionPost> findAllPostAndUserInfo();
+
+    @Query("SELECT p.id AS idPost, p.heading AS heading, p.avatar AS avatar, p.content AS content, p.dateCreated as dateCreated FROM Post p WHERE p.user.id = :idUser")
+    List<PostInUserProjection> findListPostWithUserId(@Param("idUser") Long idUser);
 
 }

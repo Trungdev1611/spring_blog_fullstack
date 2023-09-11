@@ -8,21 +8,18 @@ export const RegisterContainer = styled.div<{
   margin-top: 40px;
   justify-content: center;
   align-items: center;
-  flex-direction: ${props => props.$isLogin ? 'column': "horizontal"};
+  flex-direction: ${(props) => (props.$isLogin ? "column" : "horizontal")};
   @media (max-width: 600px) {
     flex-direction: column;
-    }
+  }
   .form-register {
     display: flex;
     flex-direction: column;
     max-width: 400px;
     min-width: 300px;
     width: 100%;
-  
-
   }
   .heading {
-
   }
 `;
 
@@ -67,9 +64,19 @@ export const TypeLogin = styled.div`
   }
 `;
 
+export const ContainerFlexCenter = styled.div<{
+  $isRed: boolean;
+}>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => (props.$isRed ? "rgb(211, 58, 44)" : "white")}
 
-export const ListPostContainer = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
+`;
+
+export const WidthContainer = styled.div`
+  max-width: 70vw;
+  @media (max-width: 768px) {
+    max-width: 90vw;
+  }
 `;

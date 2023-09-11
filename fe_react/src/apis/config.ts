@@ -37,7 +37,7 @@ instance.interceptors.response.use(
   function (error) {
     console.log("error config", error, window.location);
     if(error.response?.status === 401) {
-      // window.location.href = "http://127.0.0.1:5173/login"
+      window.location.href = "http://127.0.0.1:5173/login"
     }
     return Promise.reject(error?.response?.data);
   }
