@@ -1,8 +1,43 @@
-import React from "react";
+import  { useEffect, useState} from "react";
 import AuthorInfo from "./AuthorInfo";
-import { ContainerFlexCenter, WidthContainer } from "../../styled/common";
+import { ContainerFlexCenter, PostContainer, WidthContainer } from "../../styled/common";
+import { Apiclient } from "../../apis/config";
+import { PostItemContainer } from "../../styled/styledPostItem";
+import PostItem from "../PostItem";
+import { useLocation, useParams } from "react-router-dom";
+
+
+interface AuthorProps {
+  email: string,
+  fullName: string,
+  id:number,
+  posts: Posts[]
+}
+interface Posts {
+  avatar: string,
+  content: string,
+  dateCreated:string,
+  heading: string,
+  idPost: number
+
+}
 
 const Author = () => {
+  const [dataPostInUser, setDataPostInUser] = useState<AuthorProps|null>(null)
+  const params = useParams();
+  const location = useLocation()
+  console.log("params",location)
+
+  useEffect(() => {
+  async   function getListPostWithUser() {
+      const res = await Apiclient.get(`/user/${location.state}`)
+      // if(res.status)
+      console.log("res", res)
+      setDataPostInUser(res?.data)
+    }
+    location.state && getListPostWithUser()
+  }, [location.state])
+
   return (
     <div>
       <ContainerFlexCenter $isRed = {true} >
@@ -10,6 +45,27 @@ const Author = () => {
           <AuthorInfo />
         </WidthContainer>
       </ContainerFlexCenter>
+
+      <ContainerFlexCenter $isRed={false}>
+      <WidthContainer>
+        <PostContainer>
+          {dataPostInUser?.posts?.map((item, index) => {
+            return (
+              <PostItem
+                key={index}
+                fullNameUser={dataPostInUser.fullName}
+                contentPost={item.content}
+                dateCreated={item.dateCreated}
+                idPost={item.idPost}
+                profile_picture={item.avatar}
+                email={dataPostInUser.email}
+                headingPost={item.heading}
+              />
+            );
+          })}
+        </PostContainer>
+      </WidthContainer>
+    </ContainerFlexCenter>
     </div>
   );
 };

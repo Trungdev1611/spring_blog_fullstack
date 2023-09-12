@@ -1,16 +1,9 @@
 import { useEffect, useState } from "react";
 import PostItem from "./PostItem";
-import { styled } from "styled-components";
 import { Apiclient } from "../apis/config";
 import { PostItemProps } from "./Types";
-import { ContainerFlexCenter, WidthContainer } from "../styled/common";
+import { ContainerFlexCenter,  PostContainer,  WidthContainer } from "../styled/common";
 
-const PostContainer = styled.div`
-  display: flex;
-  gap: 35px;
-  margin-top: 35px;
-  flex-direction: column;
-`;
 
 const ListPostComponent = () => {
   const [listPost, setListPost] = useState<PostItemProps[]>([]);
@@ -43,6 +36,7 @@ const ListPostComponent = () => {
                 profile_picture={item.user.profile_picture}
                 email={item.user.email}
                 headingPost={item.heading}
+                idUser = {item.user.id}
               />
             );
           })}

@@ -10,6 +10,7 @@ export interface PostItemProps {
       full_name: string;
       email: string;
       profile_picture: string
+      id: number
     }
   }
 
@@ -24,4 +25,5 @@ export interface PostItemProps {
   
     timeRead?: string,
     counter_comments?:string
+    idUser?: number
   }

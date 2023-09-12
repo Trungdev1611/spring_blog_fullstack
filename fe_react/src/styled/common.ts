@@ -80,3 +80,11 @@ export const WidthContainer = styled.div`
     max-width: 90vw;
   }
 `;
+
+
+export const PostContainer = styled.div`
+  display: flex;
+  gap: 35px;
+  margin-top: 35px;
+  flex-direction: column;
+`;

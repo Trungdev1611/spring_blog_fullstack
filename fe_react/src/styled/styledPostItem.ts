@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 export const PostItemContainer = styled.div`
   display: flex;
   gap: 20px;
-  
+
   .post-content {
     display: flex;
     gap: 50px;
@@ -11,41 +11,47 @@ export const PostItemContainer = styled.div`
       flex-direction: column-reverse;
       gap: 20px;
     }
-  }
-  .post_info {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    .author {
-      color: #d33a2c;
-      font-size: 18px;
-      font-weight: 600;
-    }
-    .heading {
-      color: #333;
-      transition: color 0.1s linear;
-      font-size: 26px;
-      max-width: 70%;
-      font-weight: 600;
-      &:hover {
-        color: #d33a2c;
-        cursor: pointer;
-      }
-    }
-    .content {
-      line-height: 26px;
-      .date {
-        color: #aaa;
-        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-          "Lucida Sans", Arial, sans-serif;
-        margin-right: 20px;
-        text-transform: uppercase;
-      }
-      .description {
-        color: #333;
-      }
+
+    .post_info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
   }
+`;
+
+export const AuthorStyled = styled.div`
+  color: #d33a2c;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+`;
+export const HeadingPost = styled.div`
+  color: #333;
+  transition: color 0.1s linear;
+  font-size: 26px;
+  max-width: 70%;
+  font-weight: 600;
+  &:hover {
+    color: #d33a2c;
+    cursor: pointer;
+  }
+`;
+
+export const ContentPost = styled.div`
+  line-height: 26px;
+
+`;
+
+export const DateStyledPost = styled.div`
+  color: #aaa;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  margin-right: 20px;
+  text-transform: uppercase;
+`;
+export const DesctiotionPost = styled.span`
+  color: #333;
 `;
 
 export const CommentWrapper = styled.div`

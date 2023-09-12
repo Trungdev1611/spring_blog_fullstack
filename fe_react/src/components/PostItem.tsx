@@ -1,7 +1,7 @@
 import { CalendarOutlined, CommentOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { PropstypePost } from "./Types";
-import { CommentWrapper, PostItemContainer } from "../styled/styledPostItem";
+import { AuthorStyled, CommentWrapper, ContentPost, DateStyledPost, DesctiotionPost, HeadingPost, PostItemContainer } from "../styled/styledPostItem";
 import Avatar from "./common/Avatar";
 
 const PostItem = ({
@@ -11,31 +11,31 @@ const PostItem = ({
   idPost,
   headingPost,
   profile_picture,
-  email,timeRead, counter_comments
+  email,timeRead, counter_comments, idUser
 }: PropstypePost) => {
   const navigate = useNavigate();
   function navigateDetailPost() {
-    idPost && navigate(`post_detail/${idPost}`);
+    idPost && navigate(`post_detail/${idPost}`,{state: idPost});
   }
 
   function navigateDetailAuthor() {
-    fullNameUser && navigate(`author/${fullNameUser}`);
+    fullNameUser && idUser && navigate(`author/${fullNameUser}`, {state: idUser});
   }
   return (
     <PostItemContainer>
-    <Avatar linkAvatar= {profile_picture} />
+    <Avatar linkAvatar= {profile_picture}/>
       <div className="post_info">
-        <div className="author" onClick={navigateDetailAuthor}>
+        <AuthorStyled onClick={navigateDetailAuthor}>
           {fullNameUser}
-        </div>
-        <div className="heading" onClick={navigateDetailPost}>
+        </AuthorStyled>
+        <HeadingPost onClick={navigateDetailPost}>
           {headingPost}
-        </div>
+        </HeadingPost>
         <div className="post-content">
-          <div className="content">
-            <span className="date">{dateCreated || "Oct 16, 1994"}</span>
-            <span className="description">{contentPost}</span>
-          </div>
+          <ContentPost>
+            <DateStyledPost>{dateCreated || "Oct 16, 1994"}</DateStyledPost>
+            <DesctiotionPost>{contentPost}</DesctiotionPost>
+          </ContentPost>
           <CommentWrapper>
             <div className="info">
               <div className="icon">
