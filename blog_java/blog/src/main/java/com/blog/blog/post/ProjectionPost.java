@@ -55,6 +55,7 @@ public interface ProjectionPost {
     UserProjection getUser(); // cái này ánh xạ xuống các trường bên dưới
 
     interface UserProjection {
+        Long getId();
 
         String getFull_name();
 

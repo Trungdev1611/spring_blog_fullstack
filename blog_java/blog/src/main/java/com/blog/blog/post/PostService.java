@@ -7,7 +7,7 @@ public interface PostService {
 
     List<?> getAllPost();
 
-    Post getPostDetail(Long idPost);
+    ProjectionPost getPostDetail(Long idPost);
 
     PostDTO updatePost(PostDTO postDTO, Long idPost);
 

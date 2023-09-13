@@ -27,3 +27,17 @@ export interface PostItemProps {
     counter_comments?:string
     idUser?: number
   }
+
+  export interface PostDetailProps {
+    avatar:string,
+    content: string,
+    id: number,
+    heading: string,
+    dateCreated: string,
+    user: {
+        email:string,
+        full_name: string,
+        id:number,
+        profile_picture: string
+    }
+  }

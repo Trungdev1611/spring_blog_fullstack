@@ -1,21 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Apiclient } from "../apis/config";
 import { ContainerFlexCenter, WidthContainer } from "../styled/common";
 import {
   AuthorStyled,
   DateStyledPost,
-  DesctiotionPost,
   HeadingPost,
 } from "../styled/styledPostItem";
 import Avatar from "./common/Avatar";
+import { Link } from "react-router-dom";
+import PostComment from "../assets/Comments/PostComment";
+import CommentItem from "../assets/Comments/CommentItem";
+import { PostDetailProps } from "./Types";
 
 const PostDetail = () => {
   const params = useParams();
+  const [postDetail, setPostDetail] = useState<PostDetailProps | null>(null);
   useEffect(() => {
     async function getPostDetail() {
       const res = await Apiclient.get(`/posts/${params.id}`);
       console.log("res", res);
+      setPostDetail(res.data);
     }
     params.id && getPostDetail();
   }, [params.id]);
@@ -23,66 +28,45 @@ const PostDetail = () => {
     <div>
       <ContainerFlexCenter $isRed={false}>
         <WidthContainer>
-          <div className="flex" style={{marginTop: 50}}>
-            <AuthorStyled>Hannah Milan</AuthorStyled>
-            <DateStyledPost>/ AUG 11, 2023 /</DateStyledPost>
+          <div
+            className="flex"
+            style={{ marginTop: 50, alignItems: "center", marginBottom: 20 }}
+          >
+            <AuthorStyled>{postDetail?.user?.full_name}</AuthorStyled>
+            <DateStyledPost>/ {postDetail?.dateCreated} /</DateStyledPost>
             <div className="text under-line">2 comments</div>
           </div>
-          <HeadingPost>
-            Designing Accessible Text Over Images: Best Practices, Techniques
-            And Resources (Part 2)
-          </HeadingPost>
+          <HeadingPost>{postDetail?.heading}</HeadingPost>
           <div className="flex" style={{ gap: 100 }}>
             <div style={{ width: "70%", fontSize: 18 }}>
-              What is the text over images design pattern? How do we apply this
-              pattern to our designs without sacrificing legibility and
-              readability? The text over images design pattern is a design
-              technique used to place text on top of images. It is often used to
-              provide information about the image or to serve as the main
-              website navigation. However, this technique can quickly sacrifice
-              legibility and readability if there is not enough contrast between
-              the text and the image. To prevent this, designers need to ensure
-              that the text and the image have a high enough contrast ratio to
-              be legible and readable. Additionally, designers should also make
-              sure the text is positioned in the right place, away from any
-              image elements that might cause confusion, distraction, or make it
-              difficult to read. eadability? The text over images design pattern
-              is a design technique used to place text on top of images. It is
-              often used to provide information about the image or to serve as
-              the main website navigation. However, this technique can quickly
-              sacrifice legibility and readability if there is not enough
-              contrast between the text and the image. To prevent this,
-              designers need to ensure that the text and the image have a high
-              enough contrast ratio to be legible and readable. Additionally,
-              designers should also make sure the text is positioned in the
-              right place, away from any image elements that might cause
-              confusion, distraction, or make it difficult to read. eadability?
-              The text over images design pattern is a design technique used to
-              place text on top of images. It is often used to provide
-              information about the image or to serve as the main website
-              navigation. However, this technique can quickly sacrifice
-              legibility and readability if there is not enough contrast between
-              the text and the image. To prevent this, designers need to ensure
-              that the text and the image have a high enough contrast ratio to
-              be legible and readable. Additionally, designers should also make
-              sure the text is positioned in the right place, away from any
-              image elements that might cause confusion, distraction, or make it
-              difficult to read.
+            {postDetail?.content}
             </div>
-            <div style={{width: "30%"}}>
+            <div style={{ width: "30%" }}>
               <Avatar
-                linkAvatar="https://files.smashing.media/authors/hannah-milan-200px.jpg"
+                linkAvatar={postDetail?.avatar || ""}
                 styles={{ transform: "rotate(0deg)", width: 100, height: 100 }}
               />
               <div>
-                What is the text over images design pattern? How do we apply
-                this pattern to our designs without sacrificing legibility and
-                readability? The text over images design pattern is a design
-                technique used to place text on top of images. It is often used
-                to provide information about the image or to serve as the main
-                website navigation. However, this technique can quic
+                <h3>ABOUT THE AUTHOR</h3>
+                {postDetail?.content}...
+                <Link to={"/abc"}>More</Link>
               </div>
             </div>
+          </div>
+
+          <div style={{ marginTop: 20, marginBottom: 20 }}>
+            <PostComment 
+            username={postDetail?.user?.full_name || ""}
+            src ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52qqyY2Mosgxt-Pt00pZy4TqIhCanFTwyLwC-D0z5&s"/>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            <CommentItem username = {postDetail?.user?.full_name} content ="No thank you, but at least is not as stupid as the wavy eyebrown trend"/>
+            <CommentItem username = {postDetail?.user?.full_name} content ="No thank you, but at least is not as stupid as the wavy eyebrown trend"/>
+            <CommentItem username = {postDetail?.user?.full_name} content ="No thank you, but at least is not as stupid as the wavy eyebrown trend"/>
+            <CommentItem username = {postDetail?.user?.full_name} content ="No thank you, but at least is not as stupid as the wavy eyebrown trend"/>
+            <CommentItem username = {postDetail?.user?.full_name} content ="No thank you, but at least is not as stupid as the wavy eyebrown trend"/>
+
           </div>
         </WidthContainer>
       </ContainerFlexCenter>

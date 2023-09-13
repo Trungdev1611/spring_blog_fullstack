@@ -1,6 +1,9 @@
 package com.blog.blog.auth;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import com.blog.blog.Response.ResponseSuccess;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +21,12 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<UserWithPostDTO> getMethodName(@PathVariable("id") Long idUser) {
+    public ResponseEntity<ResponseSuccess> getMethodName(@PathVariable("id") Long idUser) {
         System.out.println("idUser::::" + idUser);
         UserWithPostDTO userDetail = userService.getUserDetail(idUser);
-        return new ResponseEntity<>(userDetail, HttpStatus.OK);
+        ResponseSuccess reponse = new ResponseSuccess(userDetail);
+
+        return new ResponseEntity<>(reponse, HttpStatus.OK);
     }
 
 }

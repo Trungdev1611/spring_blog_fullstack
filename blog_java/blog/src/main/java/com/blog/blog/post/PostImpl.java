@@ -60,8 +60,9 @@ public class PostImpl implements PostService { // implements chỉ sử dụng v
     }
 
     @Override
-    public Post getPostDetail(Long idPost) {
-        Post postDetail = postRepository.findById(idPost).orElseThrow(() -> new ResourceNotFoundEx());
+    public ProjectionPost getPostDetail(Long idPost) {
+        ProjectionPost postDetail = postRepository.getPostDetailAndUserInfo(idPost)
+                .orElseThrow(() -> new ResourceNotFoundEx());
         return postDetail;
     }
 
