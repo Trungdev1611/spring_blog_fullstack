@@ -23,8 +23,26 @@ public class UserController {
     @GetMapping(value = "/user/{id}")
     public ResponseEntity<ResponseSuccess> getMethodName(@PathVariable("id") Long idUser) {
         System.out.println("idUser::::" + idUser);
-        UserWithPostDTO userDetail = userService.getUserDetail(idUser);
-        ResponseSuccess reponse = new ResponseSuccess(userDetail);
+
+        ResponseSuccess reponse = new ResponseSuccess(userService.getUserDetailWithListPost(idUser));
+
+        return new ResponseEntity<>(reponse, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user/v2/{id}")
+    public ResponseEntity<ResponseSuccess> getMethodNameV2(@PathVariable("id") Long idUser) {
+        System.out.println("idUser::::" + idUser);
+
+        ResponseSuccess reponse = new ResponseSuccess(userService.getUserDetailWithListPostV2(idUser));
+
+        return new ResponseEntity<>(reponse, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/userdetails/{id}")
+    public ResponseEntity<ResponseSuccess> getDetailUser(@PathVariable("id") Long idUser) {
+        System.out.println("idUser::::" + idUser);
+
+        ResponseSuccess reponse = new ResponseSuccess(userService.getUserDetail(idUser));
 
         return new ResponseEntity<>(reponse, HttpStatus.OK);
     }

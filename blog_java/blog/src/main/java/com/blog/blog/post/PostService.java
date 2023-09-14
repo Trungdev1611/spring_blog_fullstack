@@ -9,6 +9,8 @@ public interface PostService {
 
     ProjectionPost getPostDetail(Long idPost);
 
+    PostDTOWithUserAndComment getPostDetailV2(Long idPost);
+
     PostDTO updatePost(PostDTO postDTO, Long idPost);
 
     void deletePost(Long idPost);

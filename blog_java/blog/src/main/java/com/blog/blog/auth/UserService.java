@@ -17,7 +17,7 @@ public class UserService {
         this.postRepository = postRepository;
     }
 
-    public UserWithPostDTO getUserDetail(Long idUser) {
+    public UserWithPostDTO getUserDetailWithListPost(Long idUser) {
         User userDetail = userRepository.findById(idUser).orElseThrow(() -> new ResourceNotFoundEx());
 
         // get list post in user
@@ -31,5 +31,23 @@ public class UserService {
                 listPostWithUserId);
         return userWithPostDTO;
 
+    }
+
+    public UserWithPostDTO getUserDetailWithListPostV2(Long idUser) {
+
+        // get list post in user
+        UserWithPostDTO userWithPostDTO = postRepository.findListPostWithUserIdV2(idUser)
+                .orElseThrow(() -> new ResourceNotFoundEx());
+
+        return userWithPostDTO;
+
+    }
+
+    public UserWithPostsProjection getUserDetail(Long idUser) {
+        User userDetail = userRepository.findById(idUser).orElseThrow(() -> new ResourceNotFoundEx());
+
+        System.out.println(1234);
+
+        return userRepository.findUserWithPostById(idUser);
     }
 }

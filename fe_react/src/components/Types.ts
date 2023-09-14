@@ -28,16 +28,25 @@ export interface PostItemProps {
     idUser?: number
   }
 
+  interface Comment {
+    idComment: number,
+    dateComment: string,
+    contentComment: string,
+    userComment: string
+  }
   export interface PostDetailProps {
     avatar:string,
     content: string,
     id: number,
     heading: string,
     dateCreated: string,
+    countComment: number,
+    comments:Array<Comment>,
     user: {
         email:string,
-        full_name: string,
+        fullName: string,
         id:number,
-        profile_picture: string
+        picture: string
     }
   }
+  

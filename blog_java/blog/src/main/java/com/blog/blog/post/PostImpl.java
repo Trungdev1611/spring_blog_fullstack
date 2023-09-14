@@ -1,5 +1,6 @@
 package com.blog.blog.post;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.blog.blog.Comment.CommentProjectionPost;
+import com.blog.blog.Comment.CommentRepository;
 import com.blog.blog.auth.AuthController;
 import com.blog.blog.auth.User;
 import com.blog.blog.auth.UserRepository;
@@ -21,11 +24,13 @@ public class PostImpl implements PostService { // implements chỉ sử dụng v
     private final PostRepository postRepository;
     private static final Logger logger = LoggerFactory.getLogger(PostImpl.class);
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
     @Autowired
-    public PostImpl(PostRepository postRepository, UserRepository userRepository) {
+    public PostImpl(PostRepository postRepository, UserRepository userRepository, CommentRepository commentRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
+        this.commentRepository = commentRepository;
     }
 
     @Override
@@ -64,6 +69,33 @@ public class PostImpl implements PostService { // implements chỉ sử dụng v
         ProjectionPost postDetail = postRepository.getPostDetailAndUserInfo(idPost)
                 .orElseThrow(() -> new ResourceNotFoundEx());
         return postDetail;
+    }
+
+    @Override
+    public PostDTOWithUserAndComment getPostDetailV2(Long idPost) {
+        ProjectionPost postDetail = postRepository.getPostDetailAndUserInfo(idPost)
+                .orElseThrow(() -> new ResourceNotFoundEx());
+        // return postDetail;
+
+        HashMap<String, Object> user = new HashMap<>();
+        user.put("idUser", postDetail.getUser().getId());
+        user.put("fullName", postDetail.getUser().getFull_name());
+        user.put("email", postDetail.getUser().getEmail());
+        user.put("picture", postDetail.getUser().getProfile_picture());
+
+        List<CommentProjectionPost> commentList = commentRepository.getListCommentByIdPost(idPost);
+        PostDTOWithUserAndComment postDTOWithUserAndComment = new PostDTOWithUserAndComment(
+                postDetail.getId(),
+                postDetail.getHeading(),
+                postDetail.getAvatar(),
+                postDetail.getContent(),
+                postDetail.getDateCreated(),
+                user,
+                commentList,
+                commentList.size()
+
+        );
+        return postDTOWithUserAndComment;
     }
 
     @Override

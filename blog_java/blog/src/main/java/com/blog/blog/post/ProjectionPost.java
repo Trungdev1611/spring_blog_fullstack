@@ -1,6 +1,9 @@
 package com.blog.blog.post;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.blog.blog.Comment.Comment;
 
 //ta có thể trải phẳng trong 1 object như dưới với 
 // @Query("SELECT e.id AS id, e.heading AS heading, e.avatar AS avatar, e.content AS content, e.dateCreated AS dateCreated, e.user.full_name AS full_name, e.user.email AS email, e.user.profile_picture AS profile_picture FROM Post e")
@@ -63,4 +66,5 @@ public interface ProjectionPost {
 
         String getProfile_picture();
     }
+
 }

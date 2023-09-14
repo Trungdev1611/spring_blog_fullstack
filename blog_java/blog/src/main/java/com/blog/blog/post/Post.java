@@ -1,11 +1,14 @@
 package com.blog.blog.post;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.blog.blog.Comment.Comment;
 import com.blog.blog.auth.User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -49,5 +52,8 @@ public class Post {
     @JoinColumn(name = "user_id")
     @NotNull(message = "user_id không được để trống hoặc null")
     private User user;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Comment> comments;
 
 }

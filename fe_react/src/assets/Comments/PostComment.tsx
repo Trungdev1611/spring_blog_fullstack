@@ -2,7 +2,7 @@ import { Avatar, Input } from "antd";
 import { Button } from "antd";
 import React from "react";
 
-const PostComment = ({src, username}:{src:string, username:string}) => {
+const PostComment = ({src}:{src:string}) => {
   return (
     <div>
       <h3>The Conversation (5)</h3>

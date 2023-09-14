@@ -18,3 +18,23 @@ img {
 .flex {
     display: flex;
 }
+
+.mt10 {
+    margin-top: 10px;
+}
+.mb10 {
+    margin-bottom: 10px;
+}
+.ml10 {
+    margin-left: 10px;
+}
+.mr10 {
+    margin-right: 10px;
+}
+
+.italic-font {
+    font-style: italic;
+}
+.under-line {
+    text-decoration: underline;
+}

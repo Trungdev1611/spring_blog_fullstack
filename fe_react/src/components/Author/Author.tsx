@@ -2,9 +2,8 @@ import  { useEffect, useState} from "react";
 import AuthorInfo from "./AuthorInfo";
 import { ContainerFlexCenter, PostContainer, WidthContainer } from "../../styled/common";
 import { Apiclient } from "../../apis/config";
-import { PostItemContainer } from "../../styled/styledPostItem";
 import PostItem from "../PostItem";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation} from "react-router-dom";
 
 
 interface AuthorProps {
@@ -24,9 +23,7 @@ interface Posts {
 
 const Author = () => {
   const [dataPostInUser, setDataPostInUser] = useState<AuthorProps|null>(null)
-  const params = useParams();
   const location = useLocation()
-  console.log("params",location)
 
   useEffect(() => {
   async   function getListPostWithUser() {

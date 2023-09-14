@@ -4,7 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import PrivateRoute from "./router/PrivateRoute";
 import ListPost from "./pages/ListPostPage";
-import PostDetail from "./components/PostDetail";
+import PostDetail from "./components/PostDetail/PostDetail";
 import AuthorPage from "./pages/AuthorPage";
 import AuthorInfo from "./components/Author/AuthorInfo";
 function App() {

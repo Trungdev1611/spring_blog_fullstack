@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.blog.blog.auth.PostInUserProjection;
+import com.blog.blog.auth.UserWithPostDTO;
 
 import java.util.*;
 
@@ -32,6 +33,12 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     // interface trong projection là tên field trong entity
     // còn trong native query thì Post là tên bảng, các method interface trong
     // projection là tên cột
+
+    // get chi tiết 1 post với id post bao gồm id, heading, avatar, content,
+    // datecreated, user tạo post
+    @Query("SELECT e.id AS id, e.heading AS heading, e.avatar AS avatar, e.content AS content, e.dateCreated AS dateCreated, e.user AS user FROM Post e Where e.id = :idPost")
+    Optional<ProjectionPost> getPostDetailAndUserInfo(@Param("idPost") Long id);
+
     @Query("SELECT e.id AS id, e.heading AS heading, e.avatar AS avatar, e.content AS content, e.dateCreated AS dateCreated, e.user AS user FROM Post e")
     List<ProjectionPost> findAllPostAndUserInfo();
 
@@ -39,6 +46,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<PostInUserProjection> findListPostWithUserId(@Param("idUser") Long idUser);
 
     @Query("SELECT e.id AS id, e.heading AS heading, e.avatar AS avatar, e.content AS content, e.dateCreated AS dateCreated, e.user AS user FROM Post e Where e.id = :idPost")
-    Optional<ProjectionPost> getPostDetailAndUserInfo(@Param("idPost") Long idPost);
+    Optional<UserWithPostDTO> findListPostWithUserIdV2(@Param("idPost") Long idPost);
 
 }

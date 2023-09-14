@@ -51,10 +51,26 @@ public class PostController {
         return new ResponseEntity<>(reponse, HttpStatus.OK);
     }
 
+    // @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    // @GetMapping("/{id}")
+    // public ResponseEntity<ResponseSuccess> getPostDetail(@PathVariable(name =
+    // "id") Long idPost) {
+    // ResponseSuccess reponse = new
+    // ResponseSuccess(postService.getPostDetail(idPost));
+    // return new ResponseEntity<>(reponse, HttpStatus.OK);
+    // }
+
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseSuccess> getPostDetail(@PathVariable(name = "id") Long idPost) {
+    public ResponseEntity<ResponseSuccess> getPostDetailData(@PathVariable(name = "id") Long idPost) {
         ResponseSuccess reponse = new ResponseSuccess(postService.getPostDetail(idPost));
+        return new ResponseEntity<>(reponse, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @GetMapping("/v2/{id}")
+    public ResponseEntity<ResponseSuccess> getPostDetailDataV2(@PathVariable(name = "id") Long idPost) {
+        ResponseSuccess reponse = new ResponseSuccess(postService.getPostDetailV2(idPost));
         return new ResponseEntity<>(reponse, HttpStatus.OK);
     }
 
