@@ -25,9 +25,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.blog.blog.exception.JWTAuthenticationEntryPoint;
 import com.blog.blog.jwt.JwtFilter;
 
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+
 @Configuration // annotation này để spring biết đây là file cấu hình
 // @EnableWebSecurity //annotation này cấu hình phân quyền với url
 @EnableMethodSecurity // annotation này cấu hình phân quyền trên method với hasRole, hasAuthority
+
+// start cấu hình openapi
+@SecurityScheme(name = "Bearer Authentication", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
 public class SpringSecurityConfiguration {
 
     private JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -60,6 +66,8 @@ public class SpringSecurityConfiguration {
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         // .requestMatchers("/api/v1/posts/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll() // cấu hình swagger public
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated())
                 // b?t exception ? ?ây -- các excetion không có quy?n truy c?p tài nguyên
                 .exceptionHandling((ex) -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))

@@ -15,6 +15,7 @@ import com.blog.blog.Comment.CommentProjectionPost;
 import com.blog.blog.Comment.CommentRepository;
 import com.blog.blog.auth.AuthController;
 import com.blog.blog.auth.User;
+import com.blog.blog.auth.UserDTO;
 import com.blog.blog.auth.UserRepository;
 import com.blog.blog.exception.ResourceNotFoundEx;
 
@@ -60,7 +61,7 @@ public class PostImpl implements PostService { // implements chỉ sử dụng v
     // }
 
     @Override
-    public List<?> getAllPost() {
+    public List<ProjectionPost> getAllPost() {
         return postRepository.findAllPostAndUserInfo().stream().collect(Collectors.toList());
     }
 
@@ -77,11 +78,14 @@ public class PostImpl implements PostService { // implements chỉ sử dụng v
                 .orElseThrow(() -> new ResourceNotFoundEx());
         // return postDetail;
 
-        HashMap<String, Object> user = new HashMap<>();
-        user.put("idUser", postDetail.getUser().getId());
-        user.put("fullName", postDetail.getUser().getFull_name());
-        user.put("email", postDetail.getUser().getEmail());
-        user.put("picture", postDetail.getUser().getProfile_picture());
+        // HashMap<String, Object> user = new HashMap<>();
+        // user.put("idUser", postDetail.getUser().getId());
+        // user.put("fullName", postDetail.getUser().getFull_name());
+        // user.put("email", postDetail.getUser().getEmail());
+        // user.put("picture", postDetail.getUser().getProfile_picture());
+
+        UserDTO user = new UserDTO(postDetail.getUser().getId(), postDetail.getUser().getFull_name(),
+                postDetail.getUser().getEmail(), postDetail.getUser().getProfile_picture());
 
         List<CommentProjectionPost> commentList = commentRepository.getListCommentByIdPost(idPost);
         PostDTOWithUserAndComment postDTOWithUserAndComment = new PostDTOWithUserAndComment(

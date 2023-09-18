@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.blog.blog.auth.User;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,16 +19,22 @@ import lombok.ToString;
 @ToString
 public class PostDTO {
 
-    @NotBlank
     private Long Id;
+    @NotBlank(message = "heading không được để trống hoặc null")
     private String heading;
 
+    @NotBlank(message = "avatar không được để trống hoặc null")
     private String avatar;
 
-    @NotBlank
+    @NotBlank(message = "content không được để trống hoặc null")
     private String content;
+
+    @Hidden // sử dụng hidden để ẩn các trường trên swagger docs
     private LocalDateTime dateCreated;
+    @Hidden // sử dụng hidden để ẩn các trường trên swagger docs
     private String authorName;
+    @Hidden // sử dụng hidden để ẩn các trường trên swagger docs
     private Long authorId;
+    @Hidden // sử dụng hidden để ẩn các trường trên swagger docs
     private User user;
 }

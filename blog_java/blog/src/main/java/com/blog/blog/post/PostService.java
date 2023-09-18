@@ -5,7 +5,7 @@ import java.util.List;
 public interface PostService {
     PostDTO createPost(PostDTO postDTO);
 
-    List<?> getAllPost();
+    List<ProjectionPost> getAllPost();
 
     ProjectionPost getPostDetail(Long idPost);
 
