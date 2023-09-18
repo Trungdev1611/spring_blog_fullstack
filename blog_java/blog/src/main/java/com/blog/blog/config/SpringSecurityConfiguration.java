@@ -31,7 +31,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 @Configuration // annotation này để spring biết đây là file cấu hình
 // @EnableWebSecurity //annotation này cấu hình phân quyền với url
 @EnableMethodSecurity // annotation này cấu hình phân quyền trên method với hasRole, hasAuthority
-
+// http://localhost:8080/swagger-ui/index.html
 // start cấu hình openapi
 @SecurityScheme(name = "Bearer Authentication", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
 public class SpringSecurityConfiguration {

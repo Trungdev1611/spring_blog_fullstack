@@ -127,8 +127,12 @@ public class PostImpl implements PostService { // implements chỉ sử dụng v
         newPostDTO.setHeading(post.getHeading());
         newPostDTO.setContent(post.getContent());
         newPostDTO.setAvatar(post.getAvatar());
-        newPostDTO.setAuthorName(post.getUser().getUsername());
-        newPostDTO.setAuthorId(post.getUser().getId());
+
+        if (post.getUser() != null) {
+            newPostDTO.setAuthorName(post.getUser().getUsername());
+            newPostDTO.setAuthorId(post.getUser().getId());
+        }
+
         newPostDTO.setId(post.getId());
         return newPostDTO;
 
