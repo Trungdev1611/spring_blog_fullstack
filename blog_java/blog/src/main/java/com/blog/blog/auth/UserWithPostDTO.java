@@ -3,20 +3,17 @@ package com.blog.blog.auth;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
-public class UserWithPostDTO {
-    Long id;
+@Data
+public class UserWithPostDTO extends UserDTO {
 
-    String fullName;
-
-    String email;
-
-    String profilePicture;
+    public UserWithPostDTO(Long id, String full_name, String email, String profile_picture,
+            List<PostInUserProjection> listPostWithUserId) {
+    }
 
     List<PostInUserProjection> posts;
 

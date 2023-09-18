@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.blog.blog.Comment.Comment;
 import com.blog.blog.Comment.CommentProjectionPost;
+import com.blog.blog.auth.UserDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,19 +29,10 @@ public class PostDTOWithUserAndComment {
 
     LocalDateTime dateCreated;
 
-    HashMap<String, Object> user;
+    UserDTO user;
 
     List<CommentProjectionPost> comments;
 
     int countComment;
 
 }
-// interface UserProjection {
-// Long getId();
-
-// String getFull_name();
-
-// String getEmail();
-
-// String getProfile_picture();
-// }

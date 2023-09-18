@@ -72,8 +72,11 @@ public class JwtFilter extends OncePerRequestFilter {
             else { // bắt lỗi không có token với những request khác login và register
                 String reqPath = request.getRequestURI();
                 System.out.println("URL request:::" + reqPath);
-                if ((token == null || reqPath.trim().isEmpty()) && !reqPath.contains("login")
-                        && !reqPath.contains("register")) {
+                if ((token == null || reqPath.trim().isEmpty())
+                        && !reqPath.contains("login")
+                        && !reqPath.contains("register")
+                        && !reqPath.contains("swagger")
+                        && !(reqPath.contains("/v3/api-docs"))) {
                     throw new TokenException("Không tồn tại token");
                 }
             }
