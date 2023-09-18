@@ -1,6 +1,7 @@
-import React from "react";
+
 import { styled } from "styled-components";
 import { Input } from "antd";
+import DropdownHeader from "./DropdownHeader";
 
 interface LayoutProps1 {
   childrenBody: JSX.Element;
@@ -27,6 +28,7 @@ const NavBarContainer = styled.div`
     flex: 1;
     list-style: none;
     row-gap: 10px;
+
     li {
       color: white;
       font-weight: 600;
@@ -71,7 +73,7 @@ const Layout1 = ({ childrenBody }: LayoutProps1) => {
             <li>WorkShops</li>
             <li>Conference</li>
             <li>MemberShip</li>
-            <li>More</li>
+            <DropdownHeader />
           </ul>
 
           <div className="search-container">

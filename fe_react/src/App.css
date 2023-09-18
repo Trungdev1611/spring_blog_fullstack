@@ -38,3 +38,15 @@ img {
 .under-line {
     text-decoration: underline;
 }
+
+.dropdowm-nav .dropdown-item {
+    color: rgb(211, 58, 44) !important;
+    font-weight: 500 !important;
+    font-size: 16px;
+  }
+ 
+  .grid-container{
+    display: grid;
+    grid-gap: 20px;
+    
+  }

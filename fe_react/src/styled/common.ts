@@ -1,3 +1,4 @@
+import { Modal } from "antd";
 import { styled } from "styled-components";
 
 export const RegisterContainer = styled.div<{
@@ -88,3 +89,12 @@ export const PostContainer = styled.div`
   margin-top: 35px;
   flex-direction: column;
 `;
+
+
+export const ModalCreatePost = styled(Modal) `
+    .grid-item div:first-child {
+      margin-bottom: 10px;
+      font-weight: 500;
+      
+    }
+`

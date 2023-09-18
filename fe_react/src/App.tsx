@@ -4,9 +4,9 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import PrivateRoute from "./router/PrivateRoute";
 import ListPost from "./pages/ListPostPage";
-import PostDetail from "./components/PostDetail/PostDetail";
 import AuthorPage from "./pages/AuthorPage";
 import AuthorInfo from "./components/Author/AuthorInfo";
+import PostDetailPage from "./pages/PostDetailPage";
 function App() {
 
   return (
@@ -14,7 +14,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/" element = {<PrivateRoute><ListPost/></PrivateRoute>} />
-      <Route path="/post_detail/:id" element = {<PrivateRoute ><PostDetail/></PrivateRoute>} />
+      <Route path="/post_detail/:id" element = {<PrivateRoute ><PostDetailPage/></PrivateRoute>} />
       <Route path="/author/:author_name" element = {<PrivateRoute childrenHeader={<AuthorInfo />}><AuthorPage/></PrivateRoute>} />
   
     </Routes>
