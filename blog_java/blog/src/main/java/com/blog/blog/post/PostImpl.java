@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import com.blog.blog.auth.AuthController;
 import com.blog.blog.auth.User;
 import com.blog.blog.auth.UserDTO;
 import com.blog.blog.auth.UserRepository;
+import com.blog.blog.exception.ApiException;
 import com.blog.blog.exception.ResourceNotFoundEx;
 
 @Service
@@ -109,6 +111,10 @@ public class PostImpl implements PostService { // implements chỉ sử dụng v
 
         Post postUpdateSendFromClient = convertPostDTOToPost(postDTO);
 
+        if (!checkIsUserCreatePost(postGetfromDb.getUser().getUsername())) {
+            throw new ApiException("Không phải user tạo post nên không có quyền thực hiện chức năng này");
+        }
+
         postGetfromDb.setAvatar(postUpdateSendFromClient.getAvatar());
         postGetfromDb.setContent(postUpdateSendFromClient.getContent());
         postGetfromDb.setHeading(postUpdateSendFromClient.getHeading());
@@ -118,7 +124,12 @@ public class PostImpl implements PostService { // implements chỉ sử dụng v
 
     @Override
     public void deletePost(Long idPost) {
-        postRepository.findById(idPost).orElseThrow(() -> new ResourceNotFoundEx());
+        Post postGetfromDb = postRepository.findById(idPost).orElseThrow(() -> new ResourceNotFoundEx());
+
+        if (!checkIsUserCreatePost(postGetfromDb.getUser().getUsername())) {
+            throw new ApiException("Không phải user tạo post nên không có quyền thực hiện chức năng này");
+        }
+
         postRepository.deleteById(idPost);
     }
 
@@ -146,6 +157,29 @@ public class PostImpl implements PostService { // implements chỉ sử dụng v
         post.setUser(postDTO.getUser());
         return post;
 
+    }
+
+    public boolean checkIsUserCreatePost(String nameUserCreatePost) {
+
+        // get info user from SercurityContext khi user đã login thành công
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("ROLE:::" + auth.getAuthorities());
+        // nếu user tìm được trong database có username giống username lấy trong
+        // securitycontext và role user là ROLE_USER (admin thì mặc định có quyền rồi)
+        List<String> listAuthority = auth.getAuthorities().stream()
+                .map(authority -> authority.getAuthority())
+                .collect(Collectors.toList());
+
+        if (listAuthority.contains("ROLE_ADMIN")) {
+            return true;
+        }
+        if (nameUserCreatePost.equals(auth.getName()) && listAuthority.contains("ROLE_USER")) {
+            return true;
+            //
+        }
+        // System
+        // postGetfromDb.getUser().getUsername());
+        return false;
     }
 
 }

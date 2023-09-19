@@ -125,14 +125,14 @@ public class PostController {
         }
 
         // method delete và update chỉ cho phép ADMIN, và USER tạo post có quyền
-        @PreAuthorize("(hasRole('ADMIN'))")
+        @PreAuthorize("(hasAnyRole('ADMIN', 'USER'))")
         @PutMapping("/{id}")
 
         @SecurityRequirement(name = "Bearer Authentication")
-        @Operation(summary = "GET POST DETAIL, USER CREATE POST AND COMMENT LIST IN POST BY ID POST V2 (ROLE USER. ADMIN)", description = "GET POST DETAIL, USER CREATE POST AND COMMENT LIST IN POST BY ID POST V2")
+        @Operation(summary = "ALLOW ONLY IF THE USER HAS THE 'ROLE_USER' ROLE AND THE USER CREATED THE POST OR HAS THE 'ADMIN' ROLE.", description = "ALLOW ONLY IF THE USER HAS THE 'ROLE_USER' ROLE AND THE USER CREATED THE POST OR HAS THE 'ADMIN' ROLE.")
         @ApiResponses(value = {
-                        @ApiResponse(responseCode = "200", description = "GET POST DETAIL, USER CREATE POST AND COMMENT LIST IN POST BY ID POST V2", content = {
-                                        @Content(mediaType = "application/json", schema = @Schema(implementation = PostDTOWithUserAndComment.class)) }),
+                        @ApiResponse(responseCode = "200", description = "ALLOW ONLY IF THE USER HAS THE 'ROLE_USER' ROLE AND THE USER CREATED THE POST OR HAS THE 'ADMIN' ROLE.", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = PostDTO.class)) }),
                         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
                         @ApiResponse(responseCode = "404", description = "Not found", content = @Content) })
 
@@ -142,8 +142,17 @@ public class PostController {
                 return new ResponseEntity<>(reponseUpdatePost, HttpStatus.OK);
         }
 
-        @PreAuthorize("hasRole('ADMIN')")
+        @PreAuthorize("(hasAnyRole('ADMIN', 'USER'))")
         @DeleteMapping("/{id}")
+
+        @SecurityRequirement(name = "Bearer Authentication")
+        @Operation(summary = "DELETE POST DETAIL WITH ID", description = "DELETE POST DETAIL WITH ID")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "DELETE POST DETAIL WITH ID", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = PostDTO.class)) }),
+                        @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+                        @ApiResponse(responseCode = "404", description = "Not found", content = @Content) })
+
         public ResponseEntity<ResponseSuccess> deletePost(@PathVariable(name = "id") Long idPost) {
                 postService.deletePost(idPost);
                 return new ResponseEntity<>(new ResponseSuccess(null), HttpStatus.OK);
