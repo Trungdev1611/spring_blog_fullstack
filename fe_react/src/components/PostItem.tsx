@@ -36,6 +36,7 @@ const PostItem = ({
             <DateStyledPost>{dateCreated || "Oct 16, 1994"}</DateStyledPost>
             <DesctiotionPost>{contentPost}</DesctiotionPost>
           </ContentPost>
+          
           <CommentWrapper>
             <div className="info">
               <div className="icon">
@@ -48,7 +49,7 @@ const PostItem = ({
               <div className="icon">
                 <CommentOutlined />
               </div>
-              <div className="text under-line">{counter_comments}</div>
+              <div className="text under-line" onClick={navigateDetailPost}>{counter_comments}</div>
             </div>
           </CommentWrapper>
         </div>

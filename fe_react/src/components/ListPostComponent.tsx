@@ -10,7 +10,7 @@ const ListPostComponent = () => {
   useEffect(() => {
     async function getAllPost() {
       try {
-        const res = await Apiclient.get(`/posts`);
+        const res = await Apiclient.get(`/v1/posts`);
         if (res.status) {
           console.log("resdata", res);
           setListPost(res.data);

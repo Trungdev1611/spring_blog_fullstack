@@ -27,7 +27,7 @@ const Author = () => {
 
   useEffect(() => {
   async   function getListPostWithUser() {
-      const res = await Apiclient.get(`/user/${location.state}`)
+      const res = await Apiclient.get(`/v1/user/${location.state}`)
       // if(res.status)
       console.log("res", res)
       setDataPostInUser(res?.data)

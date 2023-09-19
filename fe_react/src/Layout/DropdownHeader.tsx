@@ -1,10 +1,20 @@
-import { Dropdown, Input, MenuProps, Radio } from "antd";
+import { Alert, Dropdown, Form, Input, MenuProps, Radio, Spin } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 import ModalCommon from "../components/common/ModalCommon";
+import { Apiclient } from "../apis/config";
+import UseToast from "../Hooks/UseToast";
+
+interface valueForm {
+  heading: string;
+  typepost: string;
+  content: string;
+  avatar: string;
+}
 
 const DropdownHeader = () => {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const items: MenuProps["items"] = [
     {
       key: "1",
@@ -23,19 +33,39 @@ const DropdownHeader = () => {
       label: <div className="dropdown-item">Advertise with us</div>,
     },
   ];
-
+  const [form] = Form.useForm();
   function handleOpenModalWriteBlog() {
     setShowModal(true);
   }
+  const showToast = UseToast()
+
+  const onFinish = async (values: valueForm) => {
+    // Xử lý dữ liệu ở đây
+    setLoading(true);
+    try {
+      console.log("Received values:", values);
+      values.avatar =
+        "https://files.smashing.media/authors/hannah-milan-200px.jpg";
+      const res = await Apiclient.post("/v1/posts/create_post", values);
+      if(res.status) {
+        showToast("success")
+      }
+      console.log(res);
+    } catch (error) {
+      console.log("error");
+    } finally {
+      handleCancel();
+      setLoading(false);
+    }
+  };
 
   function handleOk() {
-
-    handleCancel()
+    form.submit();
   }
 
   function handleCancel() {
-    setShowModal(false)
-
+    form.resetFields();
+    setShowModal(false);
   }
   return (
     <div>
@@ -46,36 +76,69 @@ const DropdownHeader = () => {
       >
         <li>More</li>
       </Dropdown>
-      <ModalCommon
+      {loading ?   <Spin tip="Loading...">
+            <Alert
+              message="Đang gửi yêu cầu"
+              description="Yêu cầu của bạn đang được gửi....."
+              type="info"
+            />
+          </Spin> : <ModalCommon
         title="Thêm mới bài viết"
         open={showModal}
         onOk={handleOk}
         onCancel={handleCancel}
         width={700}
       >
-        <div className="grid-container">
-          <div className="grid-item">
-            <div>Tiêu đề bài viết</div>
-            <div>
-              <Input placeholder="Basic usage" />
-            </div>
-          </div>
-          <div className="grid-item blog-type">
-            <div>Loại bài viết</div>
-            <Radio.Group
-            //   onChange={onChange} value={value}
+        <div>
+     
+          <Form
+            name="create_post"
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+            initialValues={{
+              avatar:
+                "https://files.smashing.media/authors/hannah-milan-200px.jpg",
+            }}
+            onFinish={onFinish}
+            autoComplete="off"
+            form={form}
+          >
+            <Form.Item
+              label="Tiêu đề bài viết"
+              name="heading"
+              rules={[
+                { required: true, message: "Vui lòng nhập tiêu đề bài viết" },
+              ]}
             >
-              <Radio value={1}>Public</Radio>
-              <Radio value={2}>Private</Radio>
-            </Radio.Group>
-          </div>
+              <Input placeholder="Heading post..." />
+            </Form.Item>
 
-          <div className="grid-item body-blog">
-            <div>Nội dung bài viết</div>
-            <TextArea rows={8} placeholder="maxLength is 6" maxLength={6} />
-          </div>
+            <Form.Item
+              label="Loại bài viết"
+              name="typepost"
+              rules={[
+                { required: true, message: "Vui lòng chọn loại bài viết" },
+              ]}
+            >
+              <Radio.Group>
+                <Radio value={1}>Public</Radio>
+                <Radio value={2}>Private</Radio>
+              </Radio.Group>
+            </Form.Item>
+
+            <Form.Item
+              label="Nội dung bài viết"
+              name="content"
+              rules={[
+                { required: true, message: "Vui lòng nhập nội dung bài viết" },
+              ]}
+            >
+              <TextArea rows={8} placeholder="Content post in here..." />
+            </Form.Item>
+          </Form>
         </div>
-      </ModalCommon>
+      </ModalCommon> } 
+      
     </div>
   );
 };

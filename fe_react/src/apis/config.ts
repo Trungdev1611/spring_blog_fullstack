@@ -1,7 +1,8 @@
 import axios from "axios";
 import queryString from "query-string";
+import { showNotification } from "../utils/Notifi";
 
-const BASE_URL = "http://localhost:8080/api/v1";
+const BASE_URL = "http://localhost:8080/api";
 // const BASE_URL = "https://api-generator.retool.com";
 
 
@@ -19,13 +20,13 @@ instance.interceptors.request.use(
     console.log(`tokenn`, token);
     if(token) {
       config.headers.Authorization = "Bearer " + token; //cấu hình token cho all request
-
     }
     return config;
   },
   function (error) {
     // Do something with request error
     console.log("request Error", error);
+    showNotification("error", "Có lỗi khi thực hiện yêu cầu. Vui lòng thử lại")
     return Promise.reject(error);
   }
 );
@@ -35,9 +36,12 @@ instance.interceptors.response.use(
     return response.data;
   },
   function (error) {
-    console.log("error config", error, window.location);
     if(error.response?.status === 401) {
+      showNotification("error", "Có lỗi xảy ra khi đăng nhập. Vui lòng thử lại")
       window.location.href = "http://127.0.0.1:5173/login"
+    }
+    else {
+      showNotification("error", "Có lỗi xảy ra. Vui lòng thử lại")
     }
     return Promise.reject(error?.response?.data);
   }

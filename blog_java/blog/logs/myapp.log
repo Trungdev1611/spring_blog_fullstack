@@ -1026,3 +1026,7 @@
 19/09 - 10:25 [http-nio-8080-exec-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.blog.blog.exception.ApiException: Không phải user tạo post nên không có quyền thực hiện chức năng này]
 19/09 - 10:25 [http-nio-8080-exec-8] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.blog.blog.exception.ResourceNotFoundEx: Not Found]
 19/09 - 10:25 [http-nio-8080-exec-6] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.blog.blog.exception.ApiException: Không phải user tạo post nên không có quyền thực hiện chức năng này]
+19/09 - 13:41 [http-nio-8080-exec-5] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.blog.blog.exception.TokenException: Expired Jwt token]
+19/09 - 13:41 [http-nio-8080-exec-7] INFO  com.blog.blog.auth.AuthController - Loggger1 trong login
+19/09 - 14:45 [http-nio-8080-exec-10] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public org.springframework.http.ResponseEntity<com.blog.blog.Response.ResponseSuccess> com.blog.blog.post.PostController.createPost(com.blog.blog.post.PostDTO)]
+19/09 - 14:45 [http-nio-8080-exec-9] INFO  com.blog.blog.auth.AuthController - Loggger1 trong login

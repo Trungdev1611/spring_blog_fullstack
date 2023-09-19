@@ -10,7 +10,7 @@ const RegisterForm = () => {
     const navigate = useNavigate()
     const onFinish = async (values: valueForm) => {
       try {
-        const  res = await Apiclient.post(`/auth/register`, values)
+        const  res = await Apiclient.post(`/v1/auth/register`, values)
         console.log("res", res)
         if(res?.status) {
           alert("Register success")

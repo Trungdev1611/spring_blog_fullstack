@@ -10,6 +10,9 @@ interface LayoutProps1 {
 const HeaderContainer = styled.div`
   background-color: rgb(211, 58, 44);
   color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 `;
 
 const NavBarContainer = styled.div`
@@ -36,6 +39,7 @@ const NavBarContainer = styled.div`
       border-radius: 8px;
       font-size: 18px;
       font-family: "Lato", sans-serif;
+      cursor: pointer;
       &.active {
         background-color: rgb(169, 46, 35);
       }
@@ -48,9 +52,13 @@ const NavBarContainer = styled.div`
     width: 25%;
     min-width: 250px;
     padding: 10px;
+    max-width: 300px;
     .ant-btn-icon {
       color: rgb(211, 58, 44);
       font-weight: 600;
+    }
+    .ant-input-group-wrapper {
+      width: 100%;
     }
   }
 `;
@@ -79,7 +87,6 @@ const Layout1 = ({ childrenBody }: LayoutProps1) => {
           <div className="search-container">
             <Input.Search
               placeholder="Search articles..."
-              style={{ width: 200 }}
               onSearch={(value) => console.log(value)}
               size="large"
             />

@@ -56,9 +56,14 @@ export const TypeLogin = styled.div`
   gap: 10px;
   align-items: center;
   .icon {
-    border: 1px solid #ccc;
+    border: 1px solid #b7e1df;
     border-radius: 50%;
-    padding: 8px;
+    padding: 10px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .text {
     color: grey;

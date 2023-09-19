@@ -2,24 +2,28 @@
 import { Button, Form, Input } from 'antd';
 import { Apiclient } from '../apis/config';
 import { useNavigate } from 'react-router-dom';
+import UseToast from '../Hooks/UseToast';
 type valueForm = {
     username: string,
     password: string
 }
 const LoginForm = () => {
     const navigate = useNavigate()
+    const showToast = UseToast()
     const onFinish = async (values: valueForm) => {
         console.log('Success:', values);
         try {
-          const  res = await Apiclient.post(`/auth/login`, values)
+          const  res = await Apiclient.post(`/v1/auth/login`, values)
           if(res?.status) {
-            alert("login success")
-            console.log("res", res)
+            showToast("success", "Đăng nhập thành công")
             localStorage.setItem("token", res.data)
             navigate("/")
           }
+          else {
+            throw new Error()
+          }
         } catch (error) {
-          alert("login failed. Try again")
+          //console.log("error")
         }
        
        

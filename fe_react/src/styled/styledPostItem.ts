@@ -3,10 +3,13 @@ import { styled } from "styled-components";
 export const PostItemContainer = styled.div`
   display: flex;
   gap: 20px;
-
+  .post_info {
+    width: 100%;
+  }
   .post-content {
     display: flex;
     gap: 50px;
+    width: 100%;
     @media (max-width: 768px) {
       flex-direction: column-reverse;
       gap: 20px;
@@ -16,6 +19,7 @@ export const PostItemContainer = styled.div`
       display: flex;
       flex-direction: column;
       gap: 15px;
+     
     }
   }
 `;
@@ -40,6 +44,7 @@ export const HeadingPost = styled.div`
 
 export const ContentPost = styled.div`
   line-height: 26px;
+  flex: 1
 
 `;
 
@@ -67,6 +72,7 @@ export const CommentWrapper = styled.div`
       color: #333;
       &.under-line {
         text-decoration: underline;
+        cursor: pointer;
       }
     }
   }

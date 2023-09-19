@@ -17,7 +17,7 @@ const PostDetail = () => {
   const [postDetail, setPostDetail] = useState<PostDetailProps | null>(null);
   useEffect(() => {
     async function getPostDetail() {
-      const res = await Apiclient.get(`/posts/v2/${params.id}`);
+      const res = await Apiclient.get(`/v1/posts/v2/${params.id}`);
       console.log("res", res);
       setPostDetail(res.data);
     }
