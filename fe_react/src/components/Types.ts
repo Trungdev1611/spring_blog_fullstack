@@ -32,7 +32,8 @@ export interface PostItemProps {
     idComment: number,
     dateComment: string,
     contentComment: string,
-    userComment: string
+    userComment: string,
+    userImg: string
   }
   export interface PostDetailProps {
     avatar:string,

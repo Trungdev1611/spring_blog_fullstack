@@ -9,10 +9,11 @@ const BASE_URL = "http://localhost:8080/api";
 const instance = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
+
 });
 
 instance.defaults.withCredentials = true;
-
+instance.defaults.headers.post['Content-Type'] = 'application/json';
 instance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
@@ -38,7 +39,7 @@ instance.interceptors.response.use(
   function (error) {
     if(error.response?.status === 401) {
       showNotification("error", "Có lỗi xảy ra khi đăng nhập. Vui lòng thử lại")
-      window.location.href = "http://127.0.0.1:5173/login"
+      // window.location.href = "http://127.0.0.1:5173/login"
     }
     else {
       showNotification("error", "Có lỗi xảy ra. Vui lòng thử lại")

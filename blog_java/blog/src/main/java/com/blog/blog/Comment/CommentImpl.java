@@ -2,11 +2,15 @@ package com.blog.blog.Comment;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import com.blog.blog.Response.Paginate;
 import com.blog.blog.auth.User;
 import com.blog.blog.auth.UserRepository;
 import com.blog.blog.exception.ResourceNotFoundEx;
@@ -51,10 +55,25 @@ public class CommentImpl implements CommentService {
         return commentDTO;
     }
 
-    public List<CommentProjectionPost> getCommentByIdPost(Long idPost) {
+    public Paginate<List<CommentProjectionPost>> getCommentByIdPost(Long idPost, int pageIndex, int pageSize) {
         if (idPost == null) {
             throw new ResourceNotFoundEx("idPost not accept null");
         }
-        return commentRepository.getListCommentByIdPost(idPost);
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+
+        Page<CommentProjectionPost> data = commentRepository.getListCommentByIdPost(idPost, pageable);
+
+        // get pageIndex(số trang), pageSize(elements in page), totalElement and
+        // listComment
+        List<CommentProjectionPost> ListData = data.getContent();
+
+        int pageCurrent = data.getNumber(); // lấy page hiện tại
+
+        int pageSizeCurrent = data.getSize(); // lấy pageSize hiện tại
+
+        Long totalElement = data.getTotalElements(); // lấy tổng số phần tử
+
+        return new Paginate<List<CommentProjectionPost>>(pageCurrent, pageSizeCurrent, totalElement, ListData);
+
     }
 }

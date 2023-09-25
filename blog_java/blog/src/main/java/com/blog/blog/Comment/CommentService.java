@@ -1,7 +1,16 @@
 package com.blog.blog.Comment;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+
+import com.blog.blog.Response.Paginate;
+
 public interface CommentService {
     CommentDTO createComment(Comment comment, Long idPost);
 
-    Object getCommentByIdPost(Long postId);
+    // List<CommentProjectionPost> getCommentByIdPost(Long postId, int pageIndex,
+    // int pageSize);
+    Paginate<List<CommentProjectionPost>> getCommentByIdPost(Long postId, int pageIndex, int pageSize);
+
 }

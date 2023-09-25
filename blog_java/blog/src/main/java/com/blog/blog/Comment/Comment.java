@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import com.blog.blog.auth.User;
 import com.blog.blog.post.Post;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -27,19 +28,23 @@ import lombok.Setter;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Hidden
     private Long idComment;
     private String contentComment;
 
+    @Hidden
     @CreationTimestamp
     private LocalDateTime dateComment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @Hidden
     private User user;
 
     private Long parentCommentId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
+    @Hidden
     private Post post;
 }

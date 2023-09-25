@@ -2,20 +2,19 @@
 import { Button, Form, Input } from 'antd';
 import { Apiclient } from '../apis/config';
 import { useNavigate } from 'react-router-dom';
-import UseToast from '../Hooks/UseToast';
+import { showNotification } from '../utils/Notifi';
 type valueForm = {
     username: string,
     password: string
 }
 const LoginForm = () => {
     const navigate = useNavigate()
-    const showToast = UseToast()
     const onFinish = async (values: valueForm) => {
         console.log('Success:', values);
         try {
           const  res = await Apiclient.post(`/v1/auth/login`, values)
           if(res?.status) {
-            showToast("success", "Đăng nhập thành công")
+            showNotification("success", "Đăng nhập thành công")
             localStorage.setItem("token", res.data)
             navigate("/")
           }
