@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.blog.blog.auth.User;
 import com.blog.blog.post.Post;
 
 import jakarta.persistence.Entity;
@@ -31,6 +32,12 @@ public class Comment {
 
     @CreationTimestamp
     private LocalDateTime dateComment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private Long parentCommentId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")

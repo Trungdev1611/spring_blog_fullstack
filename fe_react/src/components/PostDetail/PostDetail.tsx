@@ -9,20 +9,28 @@ import {
 } from "../../styled/styledPostItem";
 import PostComment from "../../assets/Comments/PostComment";
 import CommentItem from "../../assets/Comments/CommentItem";
-import { PostDetailProps } from "../Types";
+import { Comment, PostDetailProps } from "../Types";
 import AuthorPostDetail from "./AuthorPostDetail";
 
 const PostDetail = () => {
   const params = useParams();
   const [postDetail, setPostDetail] = useState<PostDetailProps | null>(null);
+  const [listComment, setListcomment] = useState<Comment[] | []>([])
   useEffect(() => {
     async function getPostDetail() {
       const res = await Apiclient.get(`/v1/posts/v2/${params.id}`);
-      console.log("res", res);
       setPostDetail(res.data);
     }
     params.id && getPostDetail();
   }, [params.id]);
+
+  useEffect(() => {
+    async function getListComment() {
+      const res = await Apiclient.get(`/v1/comments/post/${params.id}`)
+      setListcomment(res.data)
+    }
+    params.id && getListComment();
+  }, [params.id])
   return (
     <div>
       <ContainerFlexCenter $isRed={false}>
@@ -53,7 +61,9 @@ const PostDetail = () => {
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            {postDetail?.comments?.map((item) => {
+            {
+            
+            listComment?.map((item) => {
               return (
                 <CommentItem
                   key={item.idComment}

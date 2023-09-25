@@ -89,16 +89,18 @@ public class PostImpl implements PostService { // implements chỉ sử dụng v
         UserDTO user = new UserDTO(postDetail.getUser().getId(), postDetail.getUser().getFull_name(),
                 postDetail.getUser().getEmail(), postDetail.getUser().getProfile_picture());
 
-        List<CommentProjectionPost> commentList = commentRepository.getListCommentByIdPost(idPost);
+        // List<CommentProjectionPost> commentList =
+        // commentRepository.getListCommentByIdPost(idPost);
         PostDTOWithUserAndComment postDTOWithUserAndComment = new PostDTOWithUserAndComment(
                 postDetail.getId(),
                 postDetail.getHeading(),
                 postDetail.getAvatar(),
                 postDetail.getContent(),
                 postDetail.getDateCreated(),
-                user,
-                commentList,
-                commentList.size()
+                user
+        // ,
+        // commentList,
+        // commentList.size()
 
         );
         return postDTOWithUserAndComment;

@@ -9,28 +9,26 @@ export const CommentInfoItem = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
   .username_comment {
     font-weight: 500;
     font-size: 16px;
-    display: flex;
-    column-gap: 100px;
-    align-items: center;
-    & span:last-child {
-      font-weight: normal;
-      font-size: 13px;
-      color: #aaa;
+    .content-comment {
+      font-size: 14px;
+      color: #333;
     }
   }
-  .content-comment {
+  .sub-content {
+    display: flex;
+    color: #aaa;
+    justify-content: space-between;
     font-size: 14px;
-    color: #333;
+    align-items: center;
   }
   .comment-action {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     color: #aaa;
-    font-size: 14px;
-    margin-top: 5px;
     .icon {
     }
   }

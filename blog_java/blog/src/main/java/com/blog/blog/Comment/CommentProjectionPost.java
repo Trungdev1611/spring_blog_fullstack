@@ -8,4 +8,9 @@ public interface CommentProjectionPost {
     String getContentComment();
 
     LocalDateTime getDateComment();
+
+    String getUserComment();
+
+    Long getParentCommentId();
+
 }

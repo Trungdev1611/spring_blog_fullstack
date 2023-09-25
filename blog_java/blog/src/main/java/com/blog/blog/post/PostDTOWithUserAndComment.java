@@ -31,8 +31,8 @@ public class PostDTOWithUserAndComment {
 
     UserDTO user;
 
-    List<CommentProjectionPost> comments;
+    // List<CommentProjectionPost> comments;
 
-    int countComment;
+    // int countComment;
 
 }

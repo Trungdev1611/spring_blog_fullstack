@@ -14,7 +14,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     // jpql query
     @Query("SELECT " +
-            "c.idComment AS idComment, c.contentComment AS contentComment, c.dateComment AS dateComment " +
+            "c.idComment AS idComment, c.contentComment AS contentComment, c.dateComment AS dateComment, c.user.username as userComment, c.parentCommentId as parentCommentId "
+            +
             "FROM Comment c WHERE c.post.id = :idPost")
     List<CommentProjectionPost> getListCommentByIdPost(@Param("idPost") Long id);
 }

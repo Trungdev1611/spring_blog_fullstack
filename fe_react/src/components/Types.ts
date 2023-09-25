@@ -28,7 +28,7 @@ export interface PostItemProps {
     idUser?: number
   }
 
-  interface Comment {
+  export interface Comment {
     idComment: number,
     dateComment: string,
     contentComment: string,
