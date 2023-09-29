@@ -13,4 +13,6 @@ public interface CommentService {
     // int pageSize);
     Paginate<List<CommentProjectionPost>> getCommentByIdPost(Long postId, int pageIndex, int pageSize);
 
+    List<Test> getCommentByIdPostTest(Long postId, int pageIndex, int pageSize);
+
 }

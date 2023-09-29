@@ -76,4 +76,14 @@ public class CommentImpl implements CommentService {
         return new Paginate<List<CommentProjectionPost>>(pageCurrent, pageSizeCurrent, totalElement, ListData);
 
     }
+
+    public List<Test> getCommentByIdPostTest(Long idPost, int pageIndex, int pageSize) {
+        if (idPost == null) {
+            throw new ResourceNotFoundEx("idPost not accept null");
+        }
+    
+
+        return commentRepository.getListCommentByIdPostTest(idPost);
+
+    }
 }

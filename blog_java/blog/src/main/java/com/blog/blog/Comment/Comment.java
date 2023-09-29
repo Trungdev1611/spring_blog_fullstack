@@ -1,6 +1,7 @@
 package com.blog.blog.Comment;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -8,6 +9,7 @@ import com.blog.blog.auth.User;
 import com.blog.blog.post.Post;
 
 import io.swagger.v3.oas.annotations.Hidden;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,10 +44,12 @@ public class Comment {
     @Hidden
     private User user;
 
-    private Long parentCommentId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     @Hidden
     private Post post;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "comment", cascade = CascadeType.ALL)
+    List<Reply> replies;
+
 }
