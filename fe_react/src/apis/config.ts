@@ -39,7 +39,7 @@ instance.interceptors.response.use(
   function (error) {
     if(error.response?.status === 401) {
       showNotification("error", "Có lỗi xảy ra khi đăng nhập. Vui lòng thử lại")
-      // window.location.href = "http://127.0.0.1:5173/login"
+      window.location.href = "http://127.0.0.1:5173/login"
     }
     else {
       showNotification("error", "Có lỗi xảy ra. Vui lòng thử lại")

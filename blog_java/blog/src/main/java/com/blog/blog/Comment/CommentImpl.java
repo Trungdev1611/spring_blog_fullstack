@@ -71,7 +71,9 @@ public class CommentImpl implements CommentService {
 
         int pageSizeCurrent = data.getSize(); // lấy pageSize hiện tại
 
-        Long totalElement = data.getTotalElements(); // lấy tổng số phần tử
+        // Long totalElement = data.getTotalElements(); // lấy tổng số phần tử
+
+        Long totalElement = commentRepository.totalCountCommentByPostId(idPost); // lấy tổng số phần tử
 
         return new Paginate<List<CommentProjectionPost>>(pageCurrent, pageSizeCurrent, totalElement, ListData);
 
@@ -81,7 +83,6 @@ public class CommentImpl implements CommentService {
         if (idPost == null) {
             throw new ResourceNotFoundEx("idPost not accept null");
         }
-    
 
         return commentRepository.getListCommentByIdPostTest(idPost);
 

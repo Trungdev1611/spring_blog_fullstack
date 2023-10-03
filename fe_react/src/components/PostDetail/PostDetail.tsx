@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Apiclient } from "../../apis/config";
 import { ContainerFlexCenter, WidthContainer } from "../../styled/common";
@@ -9,15 +9,16 @@ import {
 } from "../../styled/styledPostItem";
 import PostComment from "../../assets/Comments/PostComment";
 import CommentItem from "../../assets/Comments/CommentItem";
-import { Comment, PostDetailProps } from "../Types";
+import {PostDetailProps } from "../Types";
 import AuthorPostDetail from "./AuthorPostDetail";
 import { showNotification } from "../../utils/Notifi";
 import { Pagination, PaginationProps } from "antd";
+import { dataCommentgroupItem, groupReplyIncomment } from "../../utils/fnhelper";
 
 const PostDetail = () => {
   const params = useParams();
   const [postDetail, setPostDetail] = useState<PostDetailProps | null>(null);
-  const [listComment, setListcomment] = useState<Comment[] | []>([]);
+  const [listComment, setListcomment] = useState<dataCommentgroupItem[] | []>([]);
   const [section, setSection] = useState<string | null>(null);
   const [callback, setCallback] = useState<number | null>(null);
   const [comment, setComment] = useState<string>("");
@@ -40,7 +41,7 @@ const PostDetail = () => {
     async function getListComment() {
       try {
         const res = await Apiclient.get(`/v1/comments/post/${params.id}`, dataPage);
-        setListcomment(res.data.content);
+        setListcomment(groupReplyIncomment(res.data.content));
         setTotalElement(res.data.totalElement)
       } catch (error) {
         console.log("err", error);
@@ -101,6 +102,7 @@ const PostDetail = () => {
       );
   };
 
+  console.log("listcomment", listComment)
   return (
     <div>
       <ContainerFlexCenter $isRed={false}>
@@ -154,15 +156,29 @@ const PostDetail = () => {
             id="commens_section"
           >
             {listComment?.map((item) => {
-              return (
-                <CommentItem
-                  key={item.idComment}
-                  username={item?.userComment}
-                  content={item.contentComment}
-                  date={item.dateComment}
-                  src={item.userImg}
-                  handleSection={handleSection}
-                />
+               return (
+                <div key={item.idComment}>
+                  <CommentItem
+                    username={item?.userComment}
+                    content={item.contentComment}
+                    date={item.dateComment}
+                    src={item.userImg}
+                    handleSection={handleSection}
+                  />
+                  {/* Hiển thị các CommentItem bên trong replies */}
+                  {item?.replies?.map((reply) => (
+                    <CommentItem
+                      key={reply.idReply}
+                      username={reply.username || ""}
+                      content={reply.contentReply}
+                      date={reply.dateReply}
+                      src={reply.userImg || ""}
+                      handleSection={handleSection}
+                      isReply
+
+                    />
+                  ))}
+                </div>
               );
             })}
           </div>

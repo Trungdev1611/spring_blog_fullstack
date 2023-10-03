@@ -4,19 +4,20 @@ import { CommentOutlined, DislikeOutlined, LikeOutlined, RetweetOutlined } from 
 import { formatDateString } from "../../utils/fnhelper";
 
 interface CommentProps {
-  username: string;
+  username?: string;
   content: string;
   date: string;
   src: string;
   handleSection: (section: string)=> void;
+  isReply?: boolean
 }
 
-const CommentItem = ({ username, content, date , src, handleSection}: CommentProps) => {
+const CommentItem = ({ username, content, date , src, handleSection, isReply}: CommentProps) => {
 
 
   return (
-    <CommentItemStyled>
-      <Avatar src={src} style={{minWidth: 40, height: 40, display: "inline-block"}} />
+    <CommentItemStyled style={isReply ? {marginLeft: 35, marginTop: 20}: {}}>
+      <Avatar src={src} style={{minWidth: 30, height: 30, display: "inline-block"}} />
       <CommentInfoItem>
         <div className="username_comment">
           <span>{username} </span>
