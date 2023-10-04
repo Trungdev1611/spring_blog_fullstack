@@ -1,25 +1,35 @@
 import { Avatar, Input } from "antd";
 import { Button } from "antd";
 
+interface IuserInfo {
+  id: number;
+  fullName: string;
+  email: string;
+  profilePicture: string;
+} 
+
 const PostComment = ({
   src,
-  lengthConv,
   handleCreateComment,
   comment,
-  setComment
+  setComment,
+  isReply,
 }: {
   src: string;
-  lengthConv: number;
-  handleCreateComment: (content:string) => void,
-  comment: string,
-  setComment: React.Dispatch<React.SetStateAction<string>>
-
+  handleCreateComment: (content: string) => void;
+  comment: string;
+  setComment: React.Dispatch<React.SetStateAction<string>>;
+  isReply: boolean;
 }) => {
 
+  let userInfo: (IuserInfo | null)  = null;
+  const userInfoString: string | null = localStorage.getItem("userInfo");
+  if(userInfoString !== null ) {
+    userInfo = JSON.parse(userInfoString)
+  }
 
   return (
     <div>
-      <h3>The Conversation ({lengthConv})</h3>
       <Input.TextArea
         rows={4}
         placeholder="Leave your comment"
@@ -38,7 +48,7 @@ const PostComment = ({
         }}
       >
         {/* <span>{username}</span> */}
-        <Avatar src={src} />
+        <Avatar src={userInfo?.profilePicture} />
         <Button
           size="large"
           style={{
@@ -47,7 +57,7 @@ const PostComment = ({
           }}
           onClick={() => handleCreateComment(comment)}
         >
-          Post Comment
+          {isReply ? "Send Reply" : "Send Comment"}
         </Button>
       </div>
     </div>

@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.blog.blog.Role.Role;
 import com.blog.blog.post.Post;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -39,6 +40,7 @@ public class User {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    // @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -49,6 +51,7 @@ public class User {
     private String profile_picture;
 
     // thiết lập bảng chung giữa table User và Role
+    // @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // EAGER nghĩa là khi load user thì cũng load luôn
                                                                     // role của nó
     @JoinTable(name = "role_user",
@@ -60,6 +63,8 @@ public class User {
 
     // mappedBy ở đây là để trả ra field User user trong Post entity,
     // CascadeType.ALL là xóa thằng user thì post của nó cũng xóa
+
+    // @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> posts;
 }

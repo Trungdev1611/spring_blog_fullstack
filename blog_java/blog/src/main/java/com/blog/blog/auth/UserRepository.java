@@ -28,6 +28,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findById(Long userId);
 
-    @Query("select new com.blog.blog.auth.UserWithPostDTO (u.id, u.full_name, u.email, u.profile_picture, u.posts) from User u Where u.id =:idPost")
-    UserWithPostDTO findUserWithListPostByUserId(@Param("idPost") Long id);
+    @Query("select new com.blog.blog.auth.UserWithPostDTO (u.id, u.full_name, u.email, u.profile_picture, u.posts) from User u Where u.id =:idUser")
+    UserWithPostDTO findUserWithListPostByUserId(@Param("idUser") Long id);
 }

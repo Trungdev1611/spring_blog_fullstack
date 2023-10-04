@@ -8,6 +8,7 @@ import { useEffect } from "react";
 const LoginPage = () => {
   useEffect(() => {
     localStorage.removeItem("token")
+    localStorage.removeItem("userInfo")
   }, [])
   return (
     <div>

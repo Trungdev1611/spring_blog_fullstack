@@ -44,10 +44,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
                         "FROM comment c " +
                         "LEFT JOIN reply r ON c.id_comment = r.comment_id " +
                         "LEFT JOIN user u ON c.user_id = u.id " +
-                        "WHERE c.post_id = :idPost "
-        // +
-        // "ORDER BY c.id_comment DESC"
-                        , countQuery = "SELECT COUNT(DISTINCT c.id_comment) FROM comment c ", nativeQuery = true)
+                        "WHERE c.post_id = :idPost " +
+                        "ORDER BY c.date_comment DESC", countQuery = "SELECT COUNT(DISTINCT c.id_comment) FROM comment c ", nativeQuery = true)
         Page<CommentProjectionPost> getListCommentByIdPost(@Param("idPost") Long id, Pageable pageable);
 
         @Query(value = "SELECT " +

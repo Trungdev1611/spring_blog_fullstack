@@ -6,6 +6,7 @@ import java.util.Date;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import com.blog.blog.auth.User;
 import com.blog.blog.exception.ApiException;
 import com.blog.blog.exception.TokenException;
 

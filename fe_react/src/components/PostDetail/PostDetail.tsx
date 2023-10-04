@@ -29,6 +29,8 @@ const PostDetail = () => {
     pageIndex: 0,
     pageSize: 5
   })
+
+  const [activeReplyIndex, setActiveReplyIndex] = useState<string>("") 
   useEffect(() => {
     async function getPostDetail() {
       const res = await Apiclient.get(`/v1/posts/v2/${params.id}`);
@@ -137,12 +139,13 @@ const PostDetail = () => {
           </div>
 
           <div style={{ marginTop: 20, marginBottom: 20 }}>
+          <h3>The Conversation ({listComment?.length})</h3>
             <PostComment
               handleCreateComment={handleCreateComment}
-              lengthConv={listComment?.length}
               comment={comment}
               setComment={setComment}
               src={postDetail?.avatar || ""}
+              isReply = {false}
             />
           </div>
 
@@ -164,6 +167,9 @@ const PostDetail = () => {
                     date={item.dateComment}
                     src={item.userImg}
                     handleSection={handleSection}
+                    idComment = {`parent_${item.idComment}`}
+                    setActiveReplyIndex = {setActiveReplyIndex}
+                    activeReplyIndex = {activeReplyIndex}
                   />
                   {/* Hiển thị các CommentItem bên trong replies */}
                   {item?.replies?.map((reply) => (
@@ -175,7 +181,9 @@ const PostDetail = () => {
                       src={reply.userImg || ""}
                       handleSection={handleSection}
                       isReply
-
+                      idComment = {`reply_${reply.idReply}`}
+                      setActiveReplyIndex = {setActiveReplyIndex}
+                      activeReplyIndex = {activeReplyIndex}
                     />
                   ))}
                 </div>

@@ -45,7 +45,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT p.id AS idPost, p.heading AS heading, p.avatar AS avatar, p.content AS content, p.dateCreated as dateCreated FROM Post p WHERE p.user.id = :idUser")
     List<PostInUserProjection> findListPostWithUserId(@Param("idUser") Long idUser);
 
-    @Query("SELECT e.id AS id, e.heading AS heading, e.avatar AS avatar, e.content AS content, e.dateCreated AS dateCreated, e.user AS user FROM Post e Where e.id = :idPost")
-    Optional<UserWithPostDTO> findListPostWithUserIdV2(@Param("idPost") Long idPost);
+    @Query("SELECT e.id AS id, e.heading AS heading, e.avatar AS avatar, e.content AS content, e.dateCreated AS dateCreated, e.user AS user FROM Post e Where e.user.id = :idUser")
+    Optional<UserWithPostDTO> findListPostWithUserIdV2(@Param("idUser") Long idUser);
 
 }

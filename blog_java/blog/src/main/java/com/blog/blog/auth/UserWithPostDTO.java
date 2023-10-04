@@ -11,12 +11,14 @@ import lombok.Setter;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
+
 public class UserWithPostDTO extends UserDTO {
+    List<PostInUserProjection> posts;
 
     public UserWithPostDTO(Long id, String full_name, String email, String profile_picture,
             List<PostInUserProjection> listPostWithUserId) {
+        super(id, full_name, email, profile_picture);
+        this.posts = listPostWithUserId;
     }
-
-    List<PostInUserProjection> posts;
 
 }

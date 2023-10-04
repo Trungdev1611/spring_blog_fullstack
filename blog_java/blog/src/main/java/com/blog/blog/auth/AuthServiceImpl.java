@@ -1,6 +1,9 @@
 package com.blog.blog.auth;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +17,7 @@ import org.springframework.security.core.AuthenticationException;
 import com.blog.blog.Role.Role;
 import com.blog.blog.Role.RoleRepository;
 import com.blog.blog.exception.ApiException;
+import com.blog.blog.exception.ResourceNotFoundEx;
 import com.blog.blog.jwt.JwtProvider;
 
 @Service
@@ -36,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String login(LoginDTO loginDTO) {
+    public Object login(LoginDTO loginDTO) {
 
         // set body từ request vào authenticcationManager
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
@@ -52,8 +56,15 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = jwtTokenProvider.generateToken(authentication);
+        User userDetail = userRepository.findByUsername(loginDTO.getUsername())
+                .orElseThrow(() -> new ResourceNotFoundEx());
+        Map<String, Object> dataReturn = new HashMap<>();
 
-        return token;
+        UserDTO userDTO = new UserDTO(userDetail.getId(), userDetail.getFull_name(), userDetail.getEmail(),
+                userDetail.getProfile_picture());
+        dataReturn.put("token", token);
+        dataReturn.put("userInfo", userDTO);
+        return dataReturn;
 
     }
 

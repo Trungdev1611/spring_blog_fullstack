@@ -15,7 +15,8 @@ const LoginForm = () => {
           const  res = await Apiclient.post(`/v1/auth/login`, values)
           if(res?.status) {
             showNotification("success", "Đăng nhập thành công")
-            localStorage.setItem("token", res.data)
+            localStorage.setItem("token", res.data.token)
+            localStorage.setItem("userInfo", JSON.stringify(res.data.userInfo))
             navigate("/")
           }
           else {
